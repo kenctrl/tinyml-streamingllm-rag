@@ -1,7 +1,6 @@
-from llama_index.core import Document
-from llama_index.vector_stores.simple import SimpleVectorStore
-from llama_index.indices.vector_store import VectorStoreIndex
 import torch
+import faiss
+import numpy as np
 
 
 def slice2d(x, start, end):
@@ -125,11 +124,14 @@ class StartRecentKVCache:
 class EnhancedKVCache(StartRecentKVCache):
     def __init__(self, start_size=4, recent_size=512, k_seq_dim=2, v_seq_dim=2):
         super().__init__(start_size, recent_size, k_seq_dim, v_seq_dim)
-        print(f"EnhancedKVCache: {start_size}, {recent_size}")
-        # Initialize vector store for evicted tokens
-        self.vector_store = SimpleVectorStore()
-        self.index = VectorStoreIndex.from_vector_store(vector_store=self.vector_store)
+        # Initialize FAISS index
+        self.embedding_dim = None  # Will be set on first use
+        self.index = None
         self.evicted_chunks = []
+        
+    def _init_index(self, dim):
+        self.embedding_dim = dim
+        self.index = faiss.IndexFlatL2(dim)  # L2 distance for similarity search
         
     def evict_for_space(self, past_key_values, num_coming):
         if past_key_values is None:
@@ -148,11 +150,13 @@ class EnhancedKVCache(StartRecentKVCache):
             evicted_k = self.k_slice(k, eviction_start, eviction_end)
             evicted_v = self.v_slice(v, eviction_start, eviction_end)
             
-            # Convert to embeddings and store in vector DB
-            # Note: You'll need to implement embedding conversion based on your model
+            # Convert to embeddings and store
             embedding = self._convert_kv_to_embedding(evicted_k, evicted_v)
-            doc = Document(text=f"chunk_{len(self.evicted_chunks)}", embedding=embedding)
-            self.index.insert(doc)
+            
+            if self.index is None:
+                self._init_index(embedding.shape[0])
+                
+            self.index.add(embedding.reshape(1, -1))
             self.evicted_chunks.append((evicted_k, evicted_v))
 
         # Perform original eviction
@@ -160,30 +164,24 @@ class EnhancedKVCache(StartRecentKVCache):
 
     def retrieve_relevant_chunks(self, current_context, top_k=3):
         """Retrieve most relevant evicted chunks based on current context"""
+        if not self.evicted_chunks:
+            return []
+            
         # Convert current context to query embedding
         query_embedding = self._convert_context_to_embedding(current_context)
         
-        # Query vector store
-        results = self.index.query(
-            query_embedding,
-            top_k=top_k,
-            mode="embedding"
-        )
+        # Query FAISS index
+        D, I = self.index.search(query_embedding.reshape(1, -1), min(top_k, len(self.evicted_chunks)))
         
         # Return relevant KV pairs
-        relevant_chunks = [self.evicted_chunks[int(r.text.split('_')[1])] 
-                         for r in results]
-        return relevant_chunks
+        return [self.evicted_chunks[i] for i in I[0]]
 
     def _convert_kv_to_embedding(self, k, v):
-        """Convert KV pairs to embeddings for storage
-        This needs to be implemented based on your specific model architecture"""
-        # Placeholder implementation
+        """Convert KV pairs to embeddings for storage"""
+        # Combine k and v representations
         combined = torch.cat([k.mean(dim=[0,1]), v.mean(dim=[0,1])], dim=0)
         return combined.detach().cpu().numpy()
 
     def _convert_context_to_embedding(self, context):
-        """Convert current context to embedding for querying
-        This needs to be implemented based on your specific model architecture"""
-        # Placeholder implementation
+        """Convert current context to embedding for querying"""
         return context.mean(dim=[0,1]).detach().cpu().numpy()
