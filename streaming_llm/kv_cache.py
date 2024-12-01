@@ -1,6 +1,7 @@
+from llama_index.core import Document
+from llama_index.vector_stores.simple import SimpleVectorStore
+from llama_index.indices.vector_store import VectorStoreIndex
 import torch
-from llama_index.core import VectorStoreIndex, Document
-from llama_index.vector_stores import SimpleVectorStore
 
 
 def slice2d(x, start, end):
@@ -127,7 +128,7 @@ class EnhancedKVCache(StartRecentKVCache):
         print(f"EnhancedKVCache: {start_size}, {recent_size}")
         # Initialize vector store for evicted tokens
         self.vector_store = SimpleVectorStore()
-        self.index = VectorStoreIndex.from_vector_store(self.vector_store)
+        self.index = VectorStoreIndex.from_vector_store(vector_store=self.vector_store)
         self.evicted_chunks = []
         
     def evict_for_space(self, past_key_values, num_coming):
