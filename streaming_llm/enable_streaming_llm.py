@@ -1,4 +1,4 @@
-from streaming_llm.kv_cache import StartRecentKVCache
+from streaming_llm.kv_cache import EnhancedKVCache
 
 
 def enable_streaming_llm(model, start_size, recent_size):
@@ -29,7 +29,7 @@ def enable_streaming_llm(model, start_size, recent_size):
         enable_falcon_pos_shift_attention(model)
     else:
         raise ValueError(f"got {model.config.model_type}")
-    kv_cache = StartRecentKVCache(
+    kv_cache = EnhancedKVCache(
         start_size=start_size,
         recent_size=recent_size,
         k_seq_dim=k_seq_dim,
