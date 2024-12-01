@@ -14,6 +14,10 @@ from tqdm import tqdm
 from streaming_llm.utils import load, download_url, load_jsonl
 from streaming_llm.enable_streaming_llm import enable_streaming_llm
 
+from llama_index.core import VectorStoreIndex, Document
+from llama_index.vector_stores import SimpleVectorStore
+
+api_key = os.environ.get("OPENAI_API_KEY")
 
 @torch.no_grad()
 def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
@@ -58,7 +62,7 @@ def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
 
 
 @torch.no_grad()
-def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
+def streaming_inference(index, vector_store, model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
     past_key_values = None
     for idx, prompt in enumerate(prompts):
         prompt = "USER: " + prompt + "\n\nASSISTANT: "
@@ -70,7 +74,13 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
             space_needed = seq_len + max_gen_len
             past_key_values = kv_cache.evict_for_space(past_key_values, space_needed)
             print(f"evicted tokens")
-            print(past_key_values)
+            
+            # add evicted tokens to vector store
+            for i in range(past_key_values[0][0].size(1)):
+                print(f"added evicted token {i}")
+                vector_store.add_documents([Document(text=f"evicted token {i}")])
+                
+            index.update_index_struct(vector_store)
 
         past_key_values = greedy_generate(
             model, tokenizer, input_ids, past_key_values, max_gen_len=max_gen_len
@@ -78,6 +88,11 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
 
 
 def main(args):
+    os.environ["OPENAI_API_KEY"] = api_key
+    # create empty vector store
+    vector_store = SimpleVectorStore()
+    index = VectorStoreIndex.from_vector_store(vector_store)
+
     model_name_or_path = args.model_name_or_path
     model, tokenizer = load(model_name_or_path)
     test_filepath = os.path.join(args.data_root, "mt_bench.jsonl")
@@ -103,6 +118,8 @@ def main(args):
         kv_cache = None
 
     streaming_inference(
+        index,
+        vector_store,
         model,
         tokenizer,
         prompts,
