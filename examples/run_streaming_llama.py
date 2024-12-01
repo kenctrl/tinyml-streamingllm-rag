@@ -13,6 +13,9 @@ import sys
 from tqdm import tqdm
 from streaming_llm.utils import load, download_url, load_jsonl
 from streaming_llm.enable_streaming_llm import enable_streaming_llm
+from langchain.vectorstores import FAISS
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 api_key = os.environ.get("OPENAI_API_KEY")
 
@@ -58,20 +61,57 @@ def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
     return past_key_values
 
 
+class RAGEnhancedKVCache:
+    def __init__(self, embedding_model="sentence-transformers/all-mpnet-base-v2"):
+        self.embeddings = HuggingFaceEmbeddings(model_name=embedding_model)
+        self.vector_store = FAISS.from_texts([""], self.embeddings)
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=500,
+            chunk_overlap=50
+        )
+        self.tokenizer = None  # Will be set during initialization
+        
+    def store_evicted_tokens(self, tokens, tokenizer):
+        if self.tokenizer is None:
+            self.tokenizer = tokenizer
+            
+        # Decode tokens to text
+        evicted_text = tokenizer.decode(tokens, skip_special_tokens=True)
+        
+        # Split into chunks and store in vector store
+        chunks = self.text_splitter.split_text(evicted_text)
+        self.vector_store.add_texts(chunks)
+        
+    def retrieve_relevant_context(self, current_text, n_results=3):
+        results = self.vector_store.similarity_search(current_text, k=n_results)
+        return " ".join([doc.page_content for doc in results])
+
 @torch.no_grad()
 def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
     past_key_values = None
+    rag_cache = RAGEnhancedKVCache()
+    
     for idx, prompt in enumerate(prompts):
         prompt = "USER: " + prompt + "\n\nASSISTANT: "
         print("\n" + prompt, end="")
+        
+        # Get relevant past context
+        if idx > 0:
+            relevant_context = rag_cache.retrieve_relevant_context(prompt)
+            prompt = f"Previous relevant context: {relevant_context}\n\nCurrent query: {prompt}"
+        
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids
         input_ids = input_ids.to(model.device)
         seq_len = input_ids.shape[1]
+        
         if kv_cache is not None:
             space_needed = seq_len + max_gen_len
+            # Store evicted tokens before they're removed
+            if past_key_values is not None:
+                evicted_tokens = kv_cache.get_evicted_tokens(past_key_values, space_needed)
+                rag_cache.store_evicted_tokens(evicted_tokens, tokenizer)
+            
             past_key_values = kv_cache.evict_for_space(past_key_values, space_needed)
-            print(f"evicted tokens")
-            print(past_key_values)
 
         past_key_values = greedy_generate(
             model, tokenizer, input_ids, past_key_values, max_gen_len=max_gen_len
