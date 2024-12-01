@@ -4,7 +4,7 @@ import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from datasets import load_dataset
 from torch.nn import CrossEntropyLoss
-from streaming_llm.kv_cache import EnhancedKVCache
+from streaming_llm.kv_cache import StartRecentKVCache
 from streaming_llm.utils import parse_args, load
 
 device = "cuda"
@@ -32,7 +32,7 @@ if args.enable_start_recent_kv_cache:
         k_seq_dim = 1
     else:
         raise ValueError(f"got {model.config.model_type}")
-    kv_cache = EnhancedKVCache(
+    kv_cache = StartRecentKVCache(
         start_size=args.start_size,
         recent_size=args.recent_size,
         k_seq_dim=k_seq_dim,
