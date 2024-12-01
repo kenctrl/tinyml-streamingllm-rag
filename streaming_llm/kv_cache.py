@@ -67,6 +67,10 @@ class StartRecentKVCache:
         if past_key_values is None:
             return None
         seq_len = past_key_values[0][0].size(self.k_seq_dim)
+        
+        # print evicted tokens
+        print(f"evicting {num_coming} tokens")
+        
         if seq_len + num_coming <= self.cache_size:
             return past_key_values
         return [
