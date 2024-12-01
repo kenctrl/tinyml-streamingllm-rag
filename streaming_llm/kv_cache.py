@@ -1,5 +1,5 @@
 import torch
-from llama_index import VectorStoreIndex, Document
+from llama_index.core import VectorStoreIndex, Document
 from llama_index.vector_stores import SimpleVectorStore
 
 
