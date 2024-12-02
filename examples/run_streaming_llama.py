@@ -92,6 +92,7 @@ class RAGEnhancedKVCache:
         print("Stored evicted tokens in vector store")
 
     def retrieve_relevant_context(self, input_ids):
+        print("input_ids: ", input_ids)
         results = self.vector_store.similarity_search(input_ids, k=3)
         return " ".join([doc.page_content for doc in results])
 
