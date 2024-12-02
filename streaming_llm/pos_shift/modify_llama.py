@@ -87,20 +87,13 @@ def llama_pos_shift_attention_forward(
     kv_seq_len = key_states.shape[-2]
     if past_key_value is not None:
         try:
-            # Handle regular tuple past_key_value
-            if isinstance(past_key_value, tuple):
-                kv_seq_len += past_key_value[0].shape[-2]
-            # Handle DynamicCache object
-            else:
-                past_key_states = past_key_value.get_seq_length()
-                if past_key_states > 0:
-                    kv_seq_len += past_key_states
+            kv_seq_len += past_key_value[0].shape[-2]
         except (IndexError, KeyError, AttributeError):
             # If accessing the cache fails, just use current sequence length
             print("Error accessing cache")
             pass
 
-    cos, sin = self.rotary_emb(value_states, seq_len=kv_seq_len)
+    cos, sin = self.rotary_emb(value_states[-2], seq_len=kv_seq_len)
     
     ### Shift Pos: query pos is min(cache_size, idx)
     # If cache_position is provided, use it instead of position_ids for queries
