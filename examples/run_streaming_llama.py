@@ -101,6 +101,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         if idx > 0:
             relevant_context = rag_cache.retrieve_relevant_context(prompt)
             prompt = f"Previous relevant context: {relevant_context}\n\nCurrent query: {prompt}"
+            print("PROMPT WITH CONTEXT: ", prompt)
         
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids
         input_ids = input_ids.to(model.device)
