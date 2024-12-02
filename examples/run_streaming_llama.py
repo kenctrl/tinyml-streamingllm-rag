@@ -86,7 +86,7 @@ class RAGEnhancedKVCache:
         return " ".join([doc.page_content for doc in results])
 
 @torch.no_grad()
-def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=200):
+def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
     past_key_values = None
     rag_cache = RAGEnhancedKVCache()
     
