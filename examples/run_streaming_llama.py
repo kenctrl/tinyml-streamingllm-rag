@@ -164,7 +164,7 @@ if __name__ == "__main__":
     parser.add_argument("--data_root", type=str, default="data/")
     parser.add_argument("--enable_streaming", action="store_true")
     parser.add_argument("--start_size", type=int, default=4)
-    parser.add_argument("--recent_size", type=int, default=2000)
+    parser.add_argument("--recent_size", type=int, default=512)
     args = parser.parse_args()
 
     main(args)
