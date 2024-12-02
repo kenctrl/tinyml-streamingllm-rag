@@ -20,6 +20,47 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 api_key = os.environ.get("OPENAI_API_KEY")
 
 @torch.no_grad()
+def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_len):
+    outputs = model(
+        input_ids=input_ids,
+        past_key_values=past_key_values,
+        use_cache=True,
+    )
+    past_key_values = outputs.past_key_values
+    pred_token_idx = outputs.logits[:, -1, :].argmax(dim=-1).unsqueeze(1)
+    generated_ids = [pred_token_idx.item()]
+    pos = 0
+    for _ in range(max_gen_len - 1):
+        outputs = model(
+            input_ids=pred_token_idx,
+            past_key_values=past_key_values,
+            use_cache=True,
+        )
+        past_key_values = outputs.past_key_values
+        pred_token_idx = outputs.logits[:, -1, :].argmax(dim=-1).unsqueeze(1)
+        generated_ids.append(pred_token_idx.item())
+        generated_text = (
+            tokenizer.decode(
+                generated_ids,
+                skip_special_tokens=True,
+                clean_up_tokenization_spaces=True,
+                spaces_between_special_tokens=False,
+            )
+            .strip()
+            .split(" ")
+        )
+
+        now = len(generated_text) - 1
+        if now > pos:
+            print(" ".join(generated_text[pos:now]), end=" ", flush=True)
+            pos = now
+
+        if pred_token_idx == tokenizer.eos_token_id:
+            break
+    text = " ".join(generated_text[pos:])
+    return text
+
+@torch.no_grad()
 def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
     outputs = model(
         input_ids=input_ids,
@@ -108,7 +149,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
             past_key_values, evicted_raw_tokens = kv_cache.evict_for_space(past_key_values, space_needed)
             
             if evicted_raw_tokens is not None:
-                evicted_text = greedy_generate(model, tokenizer, input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
+                evicted_text = greedy_generate_text(model, tokenizer, input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
                 print("Evicted text: ", evicted_text)
                 rag_cache.store_evicted_tokens(evicted_text, tokenizer)
                 # # Generate text from evicted raw tokens
