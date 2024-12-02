@@ -105,16 +105,16 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=20
         prompt = "USER: " + prompt + "\n\nASSISTANT: "
         print("\n" + prompt, end="")
         
-        # Get relevant past context
-        if idx > 0:
-            relevant_context = rag_cache.retrieve_relevant_context(prompt)
-            prompt = f"Previous relevant context: {relevant_context}\n\nCurrent query: {prompt}"
-            print("PROMPT WITH CONTEXT: ", prompt)
-        
-        input_ids = tokenizer(prompt, return_tensors="pt").input_ids
+        input_ids = tokenizer(prompt, return_tensors="pt").input_ids        
         input_ids = input_ids.to(model.device)
         seq_len = input_ids.shape[1]
         
+        # Get relevant past context
+        if idx > 0:
+            relevant_context = rag_cache.retrieve_relevant_context(input_ids)
+            prompt = f"Previous relevant context: {relevant_context}\n\nCurrent query: {prompt}"
+            print("PROMPT WITH CONTEXT: ", prompt)
+
         if kv_cache is not None:
             space_needed = seq_len + max_gen_len
             # Store evicted tokens before they're removed
