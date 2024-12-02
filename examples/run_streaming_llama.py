@@ -82,7 +82,6 @@ class RAGEnhancedKVCache:
         print("Stored evicted tokens in vector store")
 
     def retrieve_relevant_context(self, text):
-        print("retrieve_relevant_context text: ", text)
         results = self.vector_store.similarity_search(text, k=3)
         return " ".join([doc.page_content for doc in results])
 
@@ -92,11 +91,11 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=20
     rag_cache = RAGEnhancedKVCache()
     
     for idx, prompt in enumerate(prompts):
+        most_similar_context = rag_cache.retrieve_relevant_context(prompt)
+        print("Prompt: ", prompt, "\nMost similar context: ", most_similar_context)
+        
         prompt = "USER: " + prompt + "\n\nASSISTANT: "
         print("\n" + prompt, end="")
-        
-        most_similar_context = rag_cache.retrieve_relevant_context(prompt)
-        print("Most similar context: ", most_similar_context)
         
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids        
         input_ids = input_ids.to(model.device)
