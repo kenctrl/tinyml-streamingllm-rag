@@ -77,7 +77,8 @@ class RAGEnhancedKVCache:
             
         # Decode tokens to text
         if tokens is not None:
-            print("Tokens to store: ", tokens)
+            if isinstance(tokens, list):
+                tokens = torch.tensor(tokens)
             evicted_text = tokenizer.decode(tokens, skip_special_tokens=True)
         
             # Split into chunks and store in vector store
