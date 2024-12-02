@@ -13,7 +13,7 @@ import sys
 from tqdm import tqdm
 from streaming_llm.utils import load, download_url, load_jsonl
 from streaming_llm.enable_streaming_llm import enable_streaming_llm
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
@@ -76,11 +76,13 @@ class RAGEnhancedKVCache:
             self.tokenizer = tokenizer
             
         # Decode tokens to text
-        evicted_text = tokenizer.decode(tokens, skip_special_tokens=True)
+        if tokens is not None:
+            print("Tokens to store: ", tokens)
+            evicted_text = tokenizer.decode(tokens, skip_special_tokens=True)
         
-        # Split into chunks and store in vector store
-        chunks = self.text_splitter.split_text(evicted_text)
-        self.vector_store.add_texts(chunks)
+            # Split into chunks and store in vector store
+            chunks = self.text_splitter.split_text(evicted_text)
+            self.vector_store.add_texts(chunks)
         
     def retrieve_relevant_context(self, current_text, n_results=3):
         results = self.vector_store.similarity_search(current_text, k=n_results)
