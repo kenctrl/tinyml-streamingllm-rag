@@ -36,6 +36,7 @@ def llama_pos_shift_attention_forward(
     past_key_value: Optional[Tuple[torch.Tensor]] = None,
     output_attentions: bool = False,
     use_cache: bool = False,
+    cache_position: Optional[torch.LongTensor] = None,
 ) -> Tuple[torch.Tensor, Optional[torch.Tensor], Optional[Tuple[torch.Tensor]]]:
     bsz, q_len, _ = hidden_states.size()
 
@@ -86,9 +87,11 @@ def llama_pos_shift_attention_forward(
     if past_key_value is not None:
         kv_seq_len += past_key_value[0].shape[-2]
     cos, sin = self.rotary_emb(value_states, seq_len=kv_seq_len)
+    
     ### Shift Pos: query pos is min(cache_size, idx)
-    # query_states, key_states = apply_rotary_pos_emb(query_states, key_states, cos, sin, position_ids)
-    query_states = apply_rotary_pos_emb_single(query_states, cos, sin, position_ids)
+    # If cache_position is provided, use it instead of position_ids for queries
+    query_position_ids = cache_position if cache_position is not None else position_ids
+    query_states = apply_rotary_pos_emb_single(query_states, cos, sin, query_position_ids)
     ###
 
     if past_key_value is not None:
