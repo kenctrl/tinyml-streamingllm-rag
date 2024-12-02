@@ -20,7 +20,17 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 api_key = os.environ.get("OPENAI_API_KEY")
 
 @torch.no_grad()
-def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
+def greedy_generate(model, tokenizer, input_ids, past_key_values, rag_cache, max_gen_len):
+    # RAG Cache contains raw evicted tokens from previous generations.
+    # Perform retrieval on the evicted tokens and add the retrieved tokens to the vector store.
+    most_similar_tokens = rag_cache.retrieve_relevant_context(input_ids)
+    print("Most similar tokens: ", most_similar_tokens)
+    
+    # Append the most similar tokens to the input ids
+    input_ids = torch.cat([input_ids, most_similar_tokens], dim=-1)
+    
+    print("Input ids: ", input_ids)
+    
     outputs = model(
         input_ids=input_ids,
         past_key_values=past_key_values,
@@ -75,22 +85,14 @@ class RAGEnhancedKVCache:
         if self.tokenizer is None:
             self.tokenizer = tokenizer
             
-        # Check if we have evicted data
-        if evicted_data is not None and isinstance(evicted_data, tuple):
-            # Extract just the input_ids from the evicted data
-            input_ids = evicted_data[0]  # Assuming first element contains the input IDs
-            if input_ids is not None and isinstance(input_ids, torch.Tensor):
-                # Convert to list if it's a tensor
-                input_ids = input_ids.cpu().tolist()
-                evicted_text = tokenizer.decode(input_ids, skip_special_tokens=True)
-                
-                # Split into chunks and store in vector store
-                chunks = self.text_splitter.split_text(evicted_text)
-                if chunks:  # Only add if we have valid chunks
-                    self.vector_store.add_texts(chunks)
+        # Store raw evicted tokens in vector store
+        for k, v in evicted_data:
+            self.vector_store.add_texts(tokenizer.decode(k.cpu().tolist(), skip_special_tokens=True))
+            
+        print("Stored evicted tokens in vector store")
 
-    def retrieve_relevant_context(self, current_text, n_results=3):
-        results = self.vector_store.similarity_search(current_text, k=n_results)
+    def retrieve_relevant_context(self, input_ids):
+        results = self.vector_store.similarity_search(input_ids, k=3)
         return " ".join([doc.page_content for doc in results])
 
 @torch.no_grad()
@@ -115,11 +117,11 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=20
         if kv_cache is not None:
             space_needed = seq_len + max_gen_len
             # Store evicted tokens before they're removed
-            past_key_values = kv_cache.evict_for_space(past_key_values, space_needed)
-            rag_cache.store_evicted_tokens(past_key_values, tokenizer)
+            past_key_values, evicted_tokens = kv_cache.evict_for_space(past_key_values, space_needed)
+            rag_cache.store_evicted_tokens(evicted_tokens, tokenizer)
 
         past_key_values = greedy_generate(
-            model, tokenizer, input_ids, past_key_values, max_gen_len=max_gen_len
+            model, tokenizer, input_ids, past_key_values, rag_cache, max_gen_len=max_gen_len
         )
 
 

@@ -68,12 +68,12 @@ class StartRecentKVCache:
             return None
         seq_len = past_key_values[0][0].size(self.k_seq_dim)
         
-        # print evicted tokens
-        print(f"evicting {num_coming} tokens")
-        
         if seq_len + num_coming <= self.cache_size:
             return past_key_values
-        return [
+        
+        print(f"Evicting {num_coming} tokens")
+        
+        new_past_key_values = [
             [
                 torch.cat(
                     [
@@ -96,6 +96,17 @@ class StartRecentKVCache:
             ]
             for k, v in past_key_values
         ]
+        
+        # get the evicted tokens
+        evicted_past_key_values = [
+            [
+                self.k_slice(k, self.start_size, seq_len - self.recent_size),
+                self.v_slice(v, self.start_size, seq_len - self.recent_size),
+            ]
+            for k, v in past_key_values
+        ]
+        
+        return new_past_key_values, evicted_past_key_values
 
     def evict_range(self, past_key_values, start, end):
         if past_key_values is None:
