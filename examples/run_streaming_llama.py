@@ -21,16 +21,6 @@ api_key = os.environ.get("OPENAI_API_KEY")
 
 @torch.no_grad()
 def greedy_generate(model, tokenizer, input_ids, past_key_values, rag_cache, max_gen_len):
-    # RAG Cache contains raw evicted tokens from previous generations.
-    # Perform retrieval on the evicted tokens and add the retrieved tokens to the vector store.
-    most_similar_tokens = rag_cache.retrieve_relevant_context(input_ids)
-    print("Most similar tokens: ", most_similar_tokens)
-    
-    # Append the most similar tokens to the input ids
-    input_ids = torch.cat([input_ids, most_similar_tokens], dim=-1)
-    
-    print("Input ids: ", input_ids)
-    
     outputs = model(
         input_ids=input_ids,
         past_key_values=past_key_values,
@@ -81,19 +71,19 @@ class RAGEnhancedKVCache:
         )
         self.tokenizer = None  # Will be set during initialization
         
-    def store_evicted_tokens(self, evicted_data, tokenizer):
+    def store_evicted_tokens(self, evicted_text, tokenizer):
         if self.tokenizer is None:
             self.tokenizer = tokenizer
             
-        # Store raw evicted tokens in vector store
-        for k, v in evicted_data:
-            self.vector_store.add_texts(tokenizer.decode(k.cpu().tolist(), skip_special_tokens=True))
+        # Store evicted text in vector store, broken into sentences
+        sentences = self.text_splitter.split_text(evicted_text)
+        self.vector_store.add_texts(sentences)
             
         print("Stored evicted tokens in vector store")
 
-    def retrieve_relevant_context(self, input_ids):
-        print("input_ids: ", input_ids)
-        results = self.vector_store.similarity_search(input_ids, k=3)
+    def retrieve_relevant_context(self, text):
+        print("retrieve_relevant_context text: ", text)
+        results = self.vector_store.similarity_search(text, k=3)
         return " ".join([doc.page_content for doc in results])
 
 @torch.no_grad()
@@ -105,23 +95,28 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=20
         prompt = "USER: " + prompt + "\n\nASSISTANT: "
         print("\n" + prompt, end="")
         
+        most_similar_context = rag_cache.retrieve_relevant_context(prompt)
+        print("Most similar context: ", most_similar_context)
+        
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids        
         input_ids = input_ids.to(model.device)
         seq_len = input_ids.shape[1]
         
-        # Get relevant past context
-        if idx > 0:
-            relevant_context = rag_cache.retrieve_relevant_context(input_ids)
-            prompt = f"Previous relevant context: {relevant_context}\n\nCurrent query: {prompt}"
-            print("PROMPT WITH CONTEXT: ", prompt)
-
         if kv_cache is not None:
             space_needed = seq_len + max_gen_len
             # Store evicted tokens before they're removed
-            past_key_values, evicted_tokens = kv_cache.evict_for_space(past_key_values, space_needed)
+            past_key_values, evicted_raw_tokens = kv_cache.evict_for_space(past_key_values, space_needed)
             
-            if evicted_tokens is not None:
-                rag_cache.store_evicted_tokens(evicted_tokens, tokenizer)
+            if evicted_raw_tokens is not None:
+                # Generate text from evicted raw tokens
+                evicted_raw_tokens = model(
+                    input_ids=evicted_raw_tokens,
+                    past_key_values=past_key_values,
+                    use_cache=True,
+                )
+                evicted_text = evicted_raw_tokens.logits[:, -1, :].argmax(dim=-1)
+                print("Evicted text: ", evicted_text)
+                rag_cache.store_evicted_tokens(evicted_text, tokenizer)
 
         past_key_values = greedy_generate(
             model, tokenizer, input_ids, past_key_values, rag_cache, max_gen_len=max_gen_len
