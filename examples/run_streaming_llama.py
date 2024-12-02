@@ -71,20 +71,24 @@ class RAGEnhancedKVCache:
         )
         self.tokenizer = None  # Will be set during initialization
         
-    def store_evicted_tokens(self, tokens, tokenizer):
+    def store_evicted_tokens(self, evicted_data, tokenizer):
         if self.tokenizer is None:
             self.tokenizer = tokenizer
             
-        # Decode tokens to text
-        if tokens is not None:
-            if isinstance(tokens, list):
-                tokens = torch.tensor(tokens)
-            evicted_text = tokenizer.decode(tokens, skip_special_tokens=True)
-        
-            # Split into chunks and store in vector store
-            chunks = self.text_splitter.split_text(evicted_text)
-            self.vector_store.add_texts(chunks)
-        
+        # Check if we have evicted data
+        if evicted_data is not None and isinstance(evicted_data, tuple):
+            # Extract just the input_ids from the evicted data
+            input_ids = evicted_data[0]  # Assuming first element contains the input IDs
+            if input_ids is not None and isinstance(input_ids, torch.Tensor):
+                # Convert to list if it's a tensor
+                input_ids = input_ids.cpu().tolist()
+                evicted_text = tokenizer.decode(input_ids, skip_special_tokens=True)
+                
+                # Split into chunks and store in vector store
+                chunks = self.text_splitter.split_text(evicted_text)
+                if chunks:  # Only add if we have valid chunks
+                    self.vector_store.add_texts(chunks)
+
     def retrieve_relevant_context(self, current_text, n_results=3):
         results = self.vector_store.similarity_search(current_text, k=n_results)
         return " ".join([doc.page_content for doc in results])
