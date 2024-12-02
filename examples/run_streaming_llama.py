@@ -104,13 +104,14 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         if kv_cache is not None:
             space_needed = seq_len + max_gen_len
             # Store evicted tokens before they're removed
+            # evicted_raw_tokens is a list of tensors, each tensor is a batch of evicted tokens
             past_key_values, evicted_raw_tokens = kv_cache.evict_for_space(past_key_values, space_needed)
             
             if evicted_raw_tokens is not None:
                 # Generate text from evicted raw tokens
                 evicted_raw_tokens = model(
-                    input_ids=evicted_raw_tokens,
-                    past_key_values=past_key_values,
+                    input_ids=input_ids,
+                    past_key_values=evicted_raw_tokens,
                     use_cache=True,
                 )
                 evicted_text = evicted_raw_tokens.logits[:, -1, :].argmax(dim=-1)
