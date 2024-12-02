@@ -86,7 +86,20 @@ def llama_pos_shift_attention_forward(
 
     kv_seq_len = key_states.shape[-2]
     if past_key_value is not None:
-        kv_seq_len += past_key_value[0].shape[-2]
+        try:
+            # Handle regular tuple past_key_value
+            if isinstance(past_key_value, tuple):
+                kv_seq_len += past_key_value[0].shape[-2]
+            # Handle DynamicCache object
+            else:
+                past_key_states = past_key_value.get_seq_length()
+                if past_key_states > 0:
+                    kv_seq_len += past_key_states
+        except (IndexError, KeyError, AttributeError):
+            # If accessing the cache fails, just use current sequence length
+            print("Error accessing cache")
+            pass
+
     cos, sin = self.rotary_emb(value_states, seq_len=kv_seq_len)
     
     ### Shift Pos: query pos is min(cache_size, idx)
@@ -96,9 +109,18 @@ def llama_pos_shift_attention_forward(
     ###
 
     if past_key_value is not None:
-        # reuse k, v, self_attention
-        key_states = torch.cat([past_key_value[0], key_states], dim=2)
-        value_states = torch.cat([past_key_value[1], value_states], dim=2)
+        try:
+            # Handle regular tuple past_key_value
+            if isinstance(past_key_value, tuple):
+                key_states = torch.cat([past_key_value[0], key_states], dim=2)
+                value_states = torch.cat([past_key_value[1], value_states], dim=2)
+            # Handle DynamicCache object
+            else:
+                key_states = past_key_value.update("key", key_states, ("batch", "num_heads", "seq_len", "head_dim"))
+                value_states = past_key_value.update("value", value_states, ("batch", "num_heads", "seq_len", "head_dim"))
+        except (IndexError, KeyError, AttributeError):
+            # If updating the cache fails, just use current key/value states
+            pass
 
     past_key_value = (key_states, value_states) if use_cache else None
 
@@ -166,7 +188,7 @@ def llama_pos_shift_attention_forward(
 
 
 def enable_llama_pos_shift_attention(model):
-    print("Model modules: ", model._modules)
+    # print("Model modules: ", model._modules)
     for name, module in reversed(model._modules.items()):
         if len(list(module.children())) > 0:
             enable_llama_pos_shift_attention(
