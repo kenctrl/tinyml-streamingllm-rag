@@ -93,7 +93,9 @@ def llama_pos_shift_attention_forward(
             print("Error accessing cache")
             pass
 
-    cos, sin = self.rotary_emb(value_states[-2], seq_len=kv_seq_len)
+    print("Value states shape: ", value_states.shape)
+    print("KV seq len: ", kv_seq_len)
+    cos, sin = self.rotary_emb(value_states[0], seq_len=kv_seq_len)
     
     ### Shift Pos: query pos is min(cache_size, idx)
     # If cache_position is provided, use it instead of position_ids for queries
