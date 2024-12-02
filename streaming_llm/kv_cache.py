@@ -65,11 +65,11 @@ class StartRecentKVCache:
 
     def evict_for_space(self, past_key_values, num_coming):
         if past_key_values is None:
-            return None
+            return None, None
         seq_len = past_key_values[0][0].size(self.k_seq_dim)
         
         if seq_len + num_coming <= self.cache_size:
-            return past_key_values
+            return past_key_values, None
         
         print(f"Evicting {num_coming} tokens")
         

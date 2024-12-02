@@ -118,7 +118,9 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=20
             space_needed = seq_len + max_gen_len
             # Store evicted tokens before they're removed
             past_key_values, evicted_tokens = kv_cache.evict_for_space(past_key_values, space_needed)
-            rag_cache.store_evicted_tokens(evicted_tokens, tokenizer)
+            
+            if evicted_tokens is not None:
+                rag_cache.store_evicted_tokens(evicted_tokens, tokenizer)
 
         past_key_values = greedy_generate(
             model, tokenizer, input_ids, past_key_values, rag_cache, max_gen_len=max_gen_len
