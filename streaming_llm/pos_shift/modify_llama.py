@@ -37,6 +37,7 @@ def llama_pos_shift_attention_forward(
     output_attentions: bool = False,
     use_cache: bool = False,
     cache_position: Optional[torch.LongTensor] = None,
+    position_embeddings: Optional[torch.Tensor] = None,
 ) -> Tuple[torch.Tensor, Optional[torch.Tensor], Optional[Tuple[torch.Tensor]]]:
     bsz, q_len, _ = hidden_states.size()
 
@@ -165,6 +166,7 @@ def llama_pos_shift_attention_forward(
 
 
 def enable_llama_pos_shift_attention(model):
+    print("Model modules: ", model._modules)
     for name, module in reversed(model._modules.items()):
         if len(list(module.children())) > 0:
             enable_llama_pos_shift_attention(
