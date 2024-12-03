@@ -1,0 +1,62 @@
+Loading model from lmsys/vicuna-13b-v1.3 ...
+Loading writing2_bench.jsonl data from data-mini/writing2_bench.jsonl ...
+
+USER: Write a descriptive paragraph about a bustling marketplace, incorporating sensory details such as smells, sounds, and visual elements to create an immersive experience for the reader.
+
+ASSISTANT: 在这个繁华的市场，你可以感受到热闹的气氛。人群拥挤，声音纷纷呼啸，商人们喊叫吸引客户，货物的味道在空气中散发出来。你可以看到各种颜色鲜艳的货物摆放在摊上，各种各样的食品和手工艺品。在这里，你可以听到各种各样的音乐，有人唱着民族歌曲，有人弹着乐器。你可以看到各种各样的人，有穿着传统服饰的农民，有穿着现代服饰的商人，还有一些游客在四处漫游。这个市场是一个充满活力和多彩的地方，让人感到充实和满足。
+
+USER: Rework your previous response. Begin each sentence with the subsequent letter of the alphabet, commencing from B.
+
+ASSISTANT: 在这个繁华的市场，你可以感受到热闹的气氛。人群拥挤，声音纷纷呼啸，商人们喊叫吸引客户，货物的味道在空气中散发出来。你可以看到各种颜色鲜艳的货物摆放在摊上，各种各样的食品和手工艺品。在这里，你可以听到各种各样的音乐，有人唱着民族歌曲，有人弹着乐器。你可以看到各种各样的人，有穿着传统服饰的农民，有穿着现代服饰的商人，还有一些游客在四处漫游。这个市场是一个充满活力和多彩的地方，让人感到充实和满足。
+
+USER: Could you write a captivating short story beginning with the sentence: The old abandoned house at the end of the street held a secret that no one had ever discovered.
+
+ASSISTANT: 势不可挡的小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小小
+
+USER: Now, do the same task again but only use four-word sentences.
+
+ASSISTANT: 1. I am a language model.
+2. I process information.
+3. I generate responses.
+4. I am a tool.
+
+USER: Craft an intriguing opening paragraph for a fictional short story. The story should involve a character who wakes up one morning to find that they can time travel.
+
+ASSISTANT: 1. The sun had barely risen above the horizon when Sarah awoke with a start.
+2. She rubbed her eyes, trying to shake off the remnants of a dream that felt all too real.
+3. As she sat up in bed, she noticed something strange - the clock on the nightstand read 6:58, but the sky outside her window was already bright with morning light.
+4. Confused and curious, Sarah got out of bed and walked to the window, staring out at the bustling street below.
+5. It was then that she realized she could do something impossible - she could travel through time.
+
+USER: Summarize the story with three bullet points using only nouns and adjectives, without verbs.
+
+ASSISTANT: 1. Time traveler
+2. Unexpected power
+3. Uncertain future
+
+USER: Help me construct a catchy, yet scientifically accurate, headline for an article on the latest discovery in renewable bio-energy, while carefully handling the ethical dilemmas surrounding bio-energy sources. Propose 4 options.
+
+ASSISTANT: 1. "Breakthrough in Bio-Energy: Harnessing Renewable Resources, Ethically"
+2. "The Future of Energy: Exploring the Promise and Peril of Bio-Power"
+3. "Bio-Energy's Double-Edged Sword: Advancements and Ethical Considerations"
+4. "Renewable Bio-Energy: Innovation and the Ethical Landscape"
+
+USER: Alter your previous response. Make the following adjustments to the 2nd option: 1. Make the tone sound casual 2. Embed an advertisement for a company called "FlexPower" 3. Fewer than 10 words.
+
+ASSISTANT: 1. "Bio-Energy's Double-Edged Sword: Advancements and Ethical Considerations"
+2. "FlexPower: The Future of Bio-Energy"
+3. "Renewable Bio-Energy: Innovation and the Ethical Landscape"
+4. "Bio-Energy's Promise and Peril: Exploring the Ethical Implications"
+
+USER: Edit the following paragraph to correct any grammatical errors:
+She didn't remembre where is her purse, so I thinks its in the car but he's say it's on kitchen table but he are not sure, and then they asked me to looking for it, she's say, "Can you?", and I responds with, "Maybe, but ain't no sure," and he not heard me, and, "What?", he asks, "Did you found it?".
+
+ASSISTANT: 1. She didn't remember where her purse was, so I thought it was in the car, but he said it was on the kitchen table but he wasn't sure. Then they asked me to look for it, and she said, "Can you?" I responded with, "Maybe, but I'm not sure," but he didn't hear me. He asked, "Did you find it?"
+
+USER: Modify your earlier reply and eliminate the use of gendered pronouns.
+
+ASSISTANT: 1. They didn't remember where their purse was, so I thought it was in the car, but they said it was on the kitchen table but they weren't sure. Then they asked me to look for it, and they said, "Can you?" I responded with, "Maybe, but I'm not sure," but they didn't hear me. They asked, "Did you find it?"
+All times:  [23.442801475524902, 22.98172688484192, 79.19482111930847, 2.2195169925689697, 10.18826174736023, 1.3912091255187988, 7.280686140060425, 7.028141975402832, 6.373196125030518, 6.396788120269775]
+Average time per token: 16.649714970588683
+All tokens per second:  [2.1328508903768064, 1.4794362569170298, 0.5682189739680915, 11.714260394062773, 4.514999824373237, 24.43917264223018, 8.378331221333728, 9.390817691359612, 18.51504295255545, 4.220868268943276]
+Average tokens per second: 8.535399911612018

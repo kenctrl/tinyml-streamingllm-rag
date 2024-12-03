@@ -1,0 +1,193 @@
+Loading model from lmsys/vicuna-13b-v1.3 ...
+Loading math2_bench.jsonl data from data-mini/math2_bench.jsonl ...
+
+USER: x+y = 4z, x*y = 4z^2, express x-y in z
+
+ASSISTANT: 我们可以通过将x和y表示为函数z的系数来解决这个问题。根据给定的方程：
+
+x + y = 4z
+x \* y = 4z^2
+
+我们可以将x表示为y的函数：
+
+x = y - 4z
+
+然后将y表示为x的函数：
+
+y = x + 4z
+
+现在我们可以将x-y表示为函数z的形式：
+
+x - y = (y - 4z) - (x + 4z) = -4z
+
+所以，x-y = -4z。
+
+USER: Express z-x in y
+
+ASSISTANT: 我们可以通过将x表示为y的函数，然后将y表示为z的函数来解决这个问题。
+
+首先，我们可以将x表示为y的函数：
+
+x = y - 4z
+
+然后，我们可以将y表示为z的函数：
+
+y = 2z + 2
+
+现在我们可以将x-y表示为y的函数：
+
+x - y = (y - 4z) - (2z + 2) = -4z - 2z - 2 = -6z - 2
+
+所以，z-x = -6z - 2。
+
+USER: How many integers are in the solution of the inequality |x + 5| < 10
+
+ASSISTANT: 要找出不等式 |x + 5| < 10 的解，我们需要找到满足这个不等式的所有整数。
+
+首先，我们可以将不等式改写为 x + 5 < 10 或 x + 5 > -10。
+
+接下来，我们需要找到满足这个不等式的所有整数。由于 x + 5 < 10，我们可以得出 x < 5。
+
+现在我们需要找到满足 x < 5 的所有整数。这些整数包括：
+
+* -6
+* -5
+* -4
+* -3
+* -2
+* -1
+* 0
+* 1
+* 2
+* 3
+* 4
+* 5
+
+因此，不等式 |x + 5| < 10 的解有 12 个整数。
+
+USER: What about |x + 10| < 5
+
+ASSISTANT: 要找出不等式 |x + 10| < 5 的解，我们需要找到满足这个不等式的所有整数。
+
+首先，我们可以将不等式改写为 x + 10 < 5 或 x + 10 > -5。
+
+接下来，我们需要找到满足这个不等式的所有整数。这些整数包括：
+
+* -9
+* -8
+* -7
+* -6
+* -5
+* -4
+* -3
+* -2
+* -1
+* 0
+* 1
+* 2
+* 3
+* 4
+* 5
+* 6
+* 7
+* 8
+* 9
+
+因此，不等式 |x + 10| < 5 的解有 19 个整数。
+
+USER: When a number is divided by 10, the remainder is 4. What is the remainder when twice the number is divided by 4?
+
+ASSISTANT: 首先，我们需要找到一个数字，使得它除以10后余数为4。这个数字是44，因为 44 ÷ 10 = 4 R 4。
+
+现在，我们要求两倍这个数字除以4，所以我们需要找到一个数字，使得它乘以2后除以4的余数为4。这个数字是8，因为 8 × 2 = 16，16 ÷ 4 = 4。
+
+所以，当一个数被两倍除以4时，余数为4的数字是8。
+
+USER: What about when twice the number is divided by 5?
+
+ASSISTANT: 我们需要找到一个数字，使得它乘以2后除以5的余数为4。这个数字是8，因为 8 ÷ 5 = 1 R 3，余数为3，但我们需要乘以2，所以余数变为2。
+
+所以，当一个数被两倍除以5时，余数为4的数字是8。
+
+USER: Benjamin went to a bookstore and purchased a variety of books. He bought 5 copies of a sci-fi novel, each priced at $20, 3 copies of a history book priced at $30 each, and 2 copies of a philosophy book for $45 each.
+What was the total cost of his purchases?
+
+ASSISTANT: 首先，我们计算每本书的总价。
+
+* 5本科幻小说的总价 = 5 × $20 = $100
+* 3本历史书的总价 = 3 × $30 = $90
+* 2本哲学书的总价 = 2 × $45 = $90
+
+然后，我们将这些总价相加以得到总价：
+
+$100 + $90 + $90 = $280
+
+所以，Benjamin购买这些书的总价为$280。
+
+USER: Suppose Benjamin decides to sell each of these books at a 25% markup from the price he purchased them. What would be his total revenue if he sold all the books he bought?
+
+ASSISTANT: 首先，我们计算每本书的售价。
+
+* 5本科幻小说的售价 = $20 + 25% × $20 = $20 + $5 = $25
+* 3本历史书的售价 = $30 + 25% × $30 = $30 + $7.50 = $37.50
+* 2本哲学书的售价 = $45 + 25% × $45 = $45 + $11.25 = $56.25
+
+然后，我们将这些售价相加以得到总售价：
+
+$25 + $37.50 + $56.25 = $119.75
+
+所以，Benjamin如果售出所有书籍，他的总收入将为$119.75。
+
+USER: Given that f(x) = 4x^3 - 9x - 14, find the value of f(2).
+
+ASSISTANT: 我们可以直接使用函数f(x)来计算f(2)的值。
+
+f(2) = 4(2)^3 - 9(2) - 14
+
+f(2) = 4(8) - 9 - 14
+
+f(2) = 32 - 9 - 14
+
+f(2) = 23
+
+所以，f(2) = 23。
+
+USER: Find x such that f(x) = 0.
+
+ASSISTANT: 我们需要找到一个x值使得f(x) = 0。
+
+f(x) = 4x^3 - 9x - 14
+
+为了使f(x)等于0，我们需要找到一个x值使得4x^3 - 9x - 14 = 0。
+
+我们可以通过求解这个方程来找到x的值。
+
+4x^3 - 9x - 14 = 0
+
+将方程的两边同时乘以2，得到：
+
+8x^3 - 18x - 14 = 0
+
+将方程的两边同时乘以2，得到：
+
+8x^3 - 18x - 14 = 0
+
+我们可以通过求解这个方程来找到x的值。
+
+8x^3 - 18x - 14 = 0
+
+
+我们可以通过求解这个方程来找到x的值。
+
+
+8x^3 - 18x - 14 = 0
+
+
+我们可以通过求解这个方程来找到x的值。
+
+
+8x^3 - 18x - 14=0x^3 - 18x - 14=0x^3 - 18x - 14=0x^3 - 18x - 14=0x - 18x - 14=0x - 18x - 14=0x - 18x - 18x - 18x - 14=0x - 18x - 18x - 18x - 18x - 18x = 18x = 18x = 18x - 18x - 18x = 18x = 18x = 18x = 18x = 18x = 18x = 18x = 18x = 18x = 18x = 18x = 18x = 18x = 180
+All times:  [11.76763391494751, 11.486075639724731, 17.523202419281006, 15.951804876327515, 12.077650308609009, 8.095561265945435, 12.539510488510132, 17.386086463928223, 7.3663389682769775, 43.41097164154053]
+Average time per token: 15.760483598709106
+All tokens per second:  [2.9742597579911303, 1.4800529382903673, 1.7690830282192198, 1.4418431129465488, 3.3947000411806094, 2.8410630522618816, 6.698826088703274, 2.9333800971145654, 5.430105805917888, 0.5298199770767397]
+Average tokens per second: 2.9493133899702224

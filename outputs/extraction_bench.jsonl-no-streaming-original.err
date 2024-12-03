@@ -1,0 +1,34 @@
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama.LlamaTokenizer'>. If you see this, DO NOT PANIC! This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thouroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:07<00:14,  7.28s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:14<00:07,  7.41s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:19<00:00,  6.05s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:19<00:00,  6.40s/it]
+Traceback (most recent call last):
+  File "examples/run_streaming_llama_original.py", line 137, in <module>
+    main(args)
+  File "examples/run_streaming_llama_original.py", line 112, in main
+    times, tokens_per_second = streaming_inference(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
+    return func(*args, **kwargs)
+  File "examples/run_streaming_llama_original.py", line 77, in streaming_inference
+    past_key_values = greedy_generate(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
+    return func(*args, **kwargs)
+  File "examples/run_streaming_llama_original.py", line 31, in greedy_generate
+    outputs = model(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 820, in forward
+    outputs = self.model(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 708, in forward
+    layer_outputs = decoder_layer(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 424, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 337, in forward
+    key_states = torch.cat([past_key_value[0], key_states], dim=2)
+RuntimeError: CUDA out of memory. Tried to allocate 28.00 MiB (GPU 0; 31.50 GiB total capacity; 29.95 GiB already allocated; 21.38 MiB free; 30.63 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

@@ -1,0 +1,36 @@
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama.LlamaTokenizer'>. If you see this, DO NOT PANIC! This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thouroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:07<00:14,  7.34s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:13<00:06,  6.74s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:17<00:00,  5.43s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:17<00:00,  5.85s/it]
+Traceback (most recent call last):
+  File "examples/run_streaming_llama.py", line 290, in <module>
+    main(args)
+  File "examples/run_streaming_llama.py", line 265, in main
+    times, tokens_per_second = streaming_inference(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
+    return func(*args, **kwargs)
+  File "examples/run_streaming_llama.py", line 222, in streaming_inference
+    evicted_text = greedy_generate_text(model, tokenizer, input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
+    return func(*args, **kwargs)
+  File "examples/run_streaming_llama.py", line 34, in greedy_generate_text
+    outputs = model(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 820, in forward
+    outputs = self.model(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 708, in forward
+    layer_outputs = decoder_layer(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 424, in forward
+    hidden_states, self_attn_weights, present_key_value = self.self_attn(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/streaming-llm/streaming_llm/pos_shift/modify_llama.py", line 103, in llama_pos_shift_attention_forward
+    key_states = apply_rotary_pos_emb_single(key_states, cos, sin, key_position_ids)
+  File "/home/kenchoi/streaming-llm/streaming_llm/pos_shift/modify_llama.py", line 27, in apply_rotary_pos_emb_single
+    x_embed = (x * cos) + (rotate_half(x) * sin)
+RuntimeError: CUDA out of memory. Tried to allocate 18.00 MiB (GPU 0; 31.50 GiB total capacity; 29.42 GiB already allocated; 1.38 MiB free; 30.53 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
