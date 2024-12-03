@@ -237,8 +237,8 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
 def main(args):
     model_name_or_path = args.model_name_or_path
     model, tokenizer = load(model_name_or_path)
-    test_filepath = os.path.join(args.data_root, "mini_mt_bench.jsonl")
-    print(f"Loading mini mt bench data from {test_filepath} ...")
+    test_filepath = os.path.join(args.data_root, args.benchmark_file_name)
+    print(f"Loading {args.benchmark_file_name} from {test_filepath} ...")
 
     if not os.path.exists(test_filepath):
         download_url(
@@ -276,6 +276,7 @@ if __name__ == "__main__":
         "--model_name_or_path", type=str, default="lmsys/vicuna-13b-v1.3"
     )
     parser.add_argument("--data_root", type=str, default="data/")
+    parser.add_argument("--benchmark_file_name", type=str, default="mt_bench.jsonl")
     parser.add_argument("--enable_streaming", action="store_true")
     parser.add_argument("--start_size", type=int, default=4)
     parser.add_argument("--recent_size", type=int, default=2000)
