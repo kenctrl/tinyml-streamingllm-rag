@@ -158,7 +158,7 @@ class RAGEnhancedKVCache:
             if len(combined_evicted_texts) == 0:
                 combined_evicted_texts.append(evicted_text)
             else:
-                if len(combined_evicted_texts[-1]) + len(evicted_text) < 500: # TODO: mention this in the paper
+                if len(combined_evicted_texts[-1]) + len(evicted_text) < 50: # TODO: mention this in the paper
                     combined_evicted_texts[-1] += " " + evicted_text
                 else:
                     combined_evicted_texts.append(evicted_text)
