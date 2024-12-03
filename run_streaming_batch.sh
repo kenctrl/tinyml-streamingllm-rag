@@ -6,8 +6,9 @@
 
 for file in data-test/*; do
     echo "Running $file"
-    CUDA_VISIBLE_DEVICES=0 python examples/run_streaming_llama.py --benchmark_file_name=$file --enable_streaming > outputs/$(basename $file)-streaming-rag.txt 2> outputs/$(basename $file)-streaming-rag.err
-    CUDA_VISIBLE_DEVICES=0 python examples/run_streaming_llama_original.py --benchmark_file_name=$file --enable_streaming > outputs/$(basename $file)-streaming-original.txt 2> outputs/$(basename $file)-streaming-original.err
-    CUDA_VISIBLE_DEVICES=0 python examples/run_streaming_llama_original.py --benchmark_file_name=$file > outputs/$(basename $file)-no-streaming-original.txt 2> outputs/$(basename $file)-no-streaming-original.err
+    base=$(basename $file)
+    CUDA_VISIBLE_DEVICES=0 python examples/run_streaming_llama.py --benchmark_file_name=$file --enable_streaming > outputs/$base-streaming-rag.txt 2> outputs/$base-streaming-rag.err
+    CUDA_VISIBLE_DEVICES=0 python examples/run_streaming_llama_original.py --benchmark_file_name=$file --enable_streaming > outputs/$base-streaming-original.txt 2> outputs/$base-streaming-original.err
+    CUDA_VISIBLE_DEVICES=0 python examples/run_streaming_llama_original.py --benchmark_file_name=$file > outputs/$base-no-streaming-original.txt 2> outputs/$base-no-streaming-original.err
     echo "Done with $file"
 done
