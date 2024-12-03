@@ -267,7 +267,7 @@ def main(args):
     )
     
     print("All times: ", times)
-    print(f"Average time per token: {sum(times) / sum(len(p) for p in prompts)}")
+    print(f"Average time per token: {sum(times) / len(times)}")
 
 
 if __name__ == "__main__":
