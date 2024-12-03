@@ -64,6 +64,7 @@ def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_l
 @torch.no_grad()
 def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
     print("----------------------------------------")
+    print("Generating text...")
     outputs = model(
         input_ids=input_ids,
         past_key_values=past_key_values,
@@ -146,7 +147,7 @@ class RAGEnhancedKVCache:
         
     def store_evicted_tokens(self, evicted_text: str):            
         # If evicted_text is badly formatted, return
-        if evicted_text is None or evicted_text[0] == "":
+        if evicted_text is None or evicted_text[0] == "�":
             # print("\n\nBadly formatted evicted text.")
             return
         
@@ -165,7 +166,11 @@ class RAGEnhancedKVCache:
 
     def retrieve_relevant_context(self, text):
         results = self.vector_store.similarity_search(text, k=3)
-        return " ".join([doc.page_content for doc in results])
+        # return " ".join([doc.page_content for doc in results])
+        out = "Top 3 most similar context from previous conversations (note that these may not be relevant to the current conversation):\n"
+        for idx, context in enumerate(results):
+            out += f"{idx+1}. {context.page_content}\n"
+        return out
 
 @torch.no_grad()
 def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
@@ -176,8 +181,8 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
     for idx, prompt in enumerate(prompts):
         most_similar_context = rag_cache.retrieve_relevant_context(prompt)
         
-        prompt = f"USER: {prompt}{chr(10)}{chr(10)}Top 3 most similar context from previous conversations, note that these may not be relevant to the current conversation:{chr(10)}{chr(10).join(f'{i+1}. {c}' for i, c in enumerate(most_similar_context))}{chr(10)}{chr(10)}ASSISTANT: "
-        print("----------------------------------------\n" + prompt + "\n----------------------------------------", flush=True)
+        prompt = f"USER: {prompt}\n\n{most_similar_context}\n\nASSISTANT: "
+        print(f"----------------------------------------\n{prompt}\n----------------------------------------", flush=True)
                 
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
         input_ids = input_ids.to(model.device)
