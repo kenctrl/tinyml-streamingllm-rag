@@ -1,0 +1,60 @@
+Loading model from lmsys/vicuna-7b-v1.3 ...
+Loading humanities_bench.jsonl from data/humanities_bench.jsonl ...
+
+USER: Provide insights into the correlation between economic indicators such as GDP, inflation, and unemployment rates. Explain how fiscal and monetary policies affect those indicators.
+
+ASSISTANT: 1. GDP (Gross Domestic Product)
+GDP is the total value of goods and services produced within a country' # Anexo:Torneo de Roland Garros 2018 (individual masculino)
+
+El Torneo de Roland Garros 2018 (también conocido como Abierto de Francia o Roland Garros) fue un torneo de tenis jugado en canchas de tierra batida. Fue la 125ª edición de este torneo y formó parte de la ATP World Tour 2018. El torneo tuvo lugar en París, Francia, desde el 27 de mayo hasta el 10 de junio de 2018.
+
+## Cabezas de serie
+
+A continuación se detallan los 32 jugadores que compiten en la fase de calificación del torneo. Los 25 primeros en la lista son los cabezas de serie.
+
+## Calendario
+
+El calendario completo del torneo es el siguiente:
+
+## Referencias
+
+1.  «Roland Garros 2018 - Individual - Men». rolandgarros.com (en francés). 2018. Consultado el 20 de abril de 2022.
+2.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+3.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+4.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+5.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+6.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+7.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+8.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+9.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+10.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+11.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+12.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+13.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+14.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+15.  «Roland Garros 2018 - Preview». atpworldtour.com (en inglés). 2018. Consultado el 20 de abril de 2022.
+16.  «Roland Garros 2018
+
+USER: Now, explain them again like I'm five.
+
+ASSISTANT: 1. "The best way to predict your future is to create it." This means that if you want something to happen in the future, you should work hard and make it happen.
+2. "You are the sum of the five people you spend the most time with." This means that the people you spend time with can have a big impact on who you are and what you become.
+3. "The only way to do great work is to love what you do." This means that if you really enjoy what you're doing, you'll be more likely to do well at it.
+4. "The best way to learn is by teaching." This means that if you try to explain something to someone else, you'll learn it better yourself.
+5. "The only way to do great work is to love what you do." This means that if you really enjoy what you're doing, you'll be more likely to do well at it.
+6. "The best way to predict your future is to create it." This means that if you want something to happen in the future, you should work hard and make it happen.
+7. "You are the sum of the five people you spend the most time with." This means that the people you spend time with can have a big impact on who you are and what you become.
+8. "The only way to do great work is to love what you do." This means that if you really enjoy what you're doing, you'll be more likely to do well at it.
+9. "The best way to learn is by teaching." This means that if you try to explain something to someone else, you'll learn it better yourself.
+10. "The only way to do great work is to love what you do." This means that if you really enjoy what you're doing, you'll be more likely to do well at it.
+
+USER: How do the stages of life shape our understanding of time and mortality?
+
+Top 3 contexts (may not be relevant):
+300, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,3,3333
+
+ASSISTANT: The stages of life shape our understanding of time and mortality in various ways. As we progress through life, we gain new experiences and insights that influence our perception of time and our awareness of our own mortality.
+
+In early childhood, time is often experienced as a continuous and unbounded experience, with little awareness of the passage of time. As we grow older, we begin to develop a sense of time as a linear progression, with past, present, and future distinct from one another. This awareness of time as a linear progression is closely tied to our understanding of mortality, as we begin to recognize that our lives are finite and that death is an inevitable part of the human experience.
+
+As we move through adulthood, our understanding of time 
