@@ -113,6 +113,7 @@ def main(args):
         kv_cache,
     )
 
+    print("All times: ", times)
     print(f"Average time per token: {sum(times) / sum(len(p) for p in prompts)}")
 
 
