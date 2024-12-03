@@ -133,8 +133,7 @@ class RAGEnhancedKVCache:
         # If the score is less than 0.5, store the evicted text in the vector store
         if score < 0.5:
             self.vector_store.add_texts([evicted_text])
-            
-        print("\n\nStored evicted tokens in vector store\n\n")
+            print("\n\nStored evicted tokens in vector store\n\n")
 
     def retrieve_relevant_context(self, text):
         results = self.vector_store.similarity_search(text, k=2)
