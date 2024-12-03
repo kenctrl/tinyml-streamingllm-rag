@@ -54,12 +54,14 @@ def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_l
 
         now = len(generated_text) - 1
         if now > pos:
-            text += " ".join(generated_text[pos:now])
+            new_text = " ".join(generated_text[pos:now])
+            text += new_text
             pos = now
 
         if pred_token_idx == tokenizer.eos_token_id:
             break
-    text += " ".join(generated_text[pos:])
+    new_text = " ".join(generated_text[pos:])
+    text += new_text
     return text
 
 @torch.no_grad()
