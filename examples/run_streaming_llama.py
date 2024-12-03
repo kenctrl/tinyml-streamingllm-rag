@@ -175,7 +175,7 @@ class RAGEnhancedKVCache:
     def retrieve_relevant_context(self, text):
         results = self.vector_store.similarity_search(text, k=3)
         # return " ".join([doc.page_content for doc in results])
-        if len(results) == 0 or results[0].page_content == " ":
+        if len(results) == 0 or results[0].page_content == " " or results[0].page_content == "":
             return ""
         out = "\n\nTop 3 contexts (may not be relevant):\n"
         counter = 1
