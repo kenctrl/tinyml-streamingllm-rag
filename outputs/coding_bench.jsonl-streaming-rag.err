@@ -1,18 +1,0 @@
-You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama.LlamaTokenizer'>. If you see this, DO NOT PANIC! This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thouroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
-normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
-normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
-Downloading shards:   0%|          | 0/2 [00:00<?, ?it/s]Downloading shards:  50%|█████     | 1/2 [01:46<01:46, 106.83s/it]Downloading shards: 100%|██████████| 2/2 [02:54<00:00, 84.03s/it] Downloading shards: 100%|██████████| 2/2 [02:54<00:00, 87.45s/it]
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.24s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.05s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.23s/it]
-Token indices sequence length is longer than the specified maximum sequence length for this model (3133 > 2048). Running this sequence through the model will result in indexing errors
-Traceback (most recent call last):
-  File "examples/run_streaming_llama.py", line 290, in <module>
-    main(args)
-  File "examples/run_streaming_llama.py", line 265, in main
-    times, tokens_per_second = streaming_inference(
-  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
-    return func(*args, **kwargs)
-  File "examples/run_streaming_llama.py", line 224, in streaming_inference
-    rag_cache.store_evicted_tokens(evicted_text)
-  File "examples/run_streaming_llama.py", line 148, in store_evicted_tokens
-    if evicted_text is None or evicted_text[0] == "�":
-IndexError: string index out of range
