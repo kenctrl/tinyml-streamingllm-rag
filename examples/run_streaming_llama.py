@@ -229,7 +229,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         )
         end_time = time.time()
         times.append(end_time - start_time)
-        print(f"\nTime taken: {end_time - start_time} seconds")
+        # print(f"\nTime taken: {end_time - start_time} seconds")
         
     return times
 
