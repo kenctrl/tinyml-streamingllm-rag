@@ -9,6 +9,7 @@ import os
 import time
 import re
 import sys
+import time
 
 from tqdm import tqdm
 from streaming_llm.utils import load, download_url, load_jsonl
@@ -157,7 +158,7 @@ class RAGEnhancedKVCache:
             if len(combined_evicted_texts) == 0:
                 combined_evicted_texts.append(evicted_text)
             else:
-                if len(combined_evicted_texts[-1]) + len(evicted_text) < 50:
+                if len(combined_evicted_texts[-1]) < 50:
                     combined_evicted_texts[-1] += " " + evicted_text
                 else:
                     combined_evicted_texts.append(evicted_text)
@@ -183,22 +184,25 @@ class RAGEnhancedKVCache:
             if context.page_content != " " and context.page_content != "" and context.page_content != "Top 3 context (may not be relevant):":
                 out += f"{context.page_content}\n"
                 # counter += 1
-        return out
+                
+        return out.strip()
 
 @torch.no_grad()
 def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
     past_key_values = None
     rag_cache = RAGEnhancedKVCache()
     # prev_input_ids = None
+    times = []
     
     for idx, prompt in enumerate(prompts):
+        start_time = time.time()
         if idx == 0:
             most_similar_context = ""
         else:
             most_similar_context = rag_cache.retrieve_relevant_context(prompt)
         
         prompt = f"USER: {prompt}{most_similar_context}\n\nASSISTANT: "
-        print(f"----------------------------------------\n{prompt}", end="")
+        print(prompt, end="")
                 
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
         input_ids = input_ids.to(model.device)
@@ -220,6 +224,10 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         past_key_values = greedy_generate(
             model, tokenizer, input_ids, past_key_values, max_gen_len=max_gen_len
         )
+        end_time = time.time()
+        times.append(end_time - start_time)
+        
+    return times
 
 
 def main(args):
@@ -247,12 +255,15 @@ def main(args):
     else:
         kv_cache = None
 
-    streaming_inference(
+    times = streaming_inference(
         model,
         tokenizer,
         prompts,
         kv_cache,
     )
+    
+    print("All times: ", times)
+    print(f"Average time per token: {sum(times) / sum(len(p) for p in prompts)}")
 
 
 if __name__ == "__main__":
