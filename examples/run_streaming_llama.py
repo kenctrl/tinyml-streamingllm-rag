@@ -189,8 +189,8 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
             # evicted_raw_tokens is a list of tensors
             past_key_values, evicted_raw_tokens = kv_cache.evict_for_space(past_key_values, space_needed)
             
-            if evicted_raw_tokens is not None and prev_input_ids is not None:
-                evicted_text = greedy_generate_text(model, tokenizer, prev_input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
+            if evicted_raw_tokens is not None and input_ids is not None:
+                evicted_text = greedy_generate_text(model, tokenizer, input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
                 # print("Evicted text: ", evicted_text)
                 rag_cache.store_evicted_tokens(evicted_text)
             
