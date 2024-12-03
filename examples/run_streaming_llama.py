@@ -17,8 +17,6 @@ from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-api_key = os.environ.get("OPENAI_API_KEY")
-
 @torch.no_grad()
 def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_len):
     outputs = model(

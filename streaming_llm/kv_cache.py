@@ -71,7 +71,7 @@ class StartRecentKVCache:
         if seq_len + num_coming <= self.cache_size:
             return past_key_values, None
         
-        print(f"Evicting {num_coming} tokens")
+        print(f"Evicting tokens...")
         
         new_past_key_values = [
             [
