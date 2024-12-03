@@ -243,6 +243,7 @@ def main(args):
     print(f"Loading {args.benchmark_file_name} from {test_filepath} ...")
 
     if not os.path.exists(test_filepath):
+        print("Downloading benchmark file...")
         download_url(
             "https://raw.githubusercontent.com/lm-sys/FastChat/main/fastchat/llm_judge/data/mt_bench/question.jsonl",
             args.data_root,
