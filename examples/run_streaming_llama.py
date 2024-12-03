@@ -175,9 +175,9 @@ class RAGEnhancedKVCache:
     def retrieve_relevant_context(self, text):
         results = self.vector_store.similarity_search(text, k=3)
         # return " ".join([doc.page_content for doc in results])
-        if len(results) == 0:
+        if len(results) == 0 or results[0].page_content == " ":
             return ""
-        out = "Top 3 contexts (may not be relevant):\n"
+        out = "\n\nTop 3 contexts (may not be relevant):\n"
         counter = 1
         for context in results:
             if context.page_content != " " and context.page_content != "" and context.page_content != "Top 3 context (may not be relevant):":
@@ -197,7 +197,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         else:
             most_similar_context = rag_cache.retrieve_relevant_context(prompt)
         
-        prompt = f"USER: {prompt}\n\n{most_similar_context}\n\nASSISTANT: "
+        prompt = f"USER: {prompt}{most_similar_context}\n\nASSISTANT: "
         print(f"----------------------------------------\n{prompt}", end="")
                 
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
