@@ -153,17 +153,20 @@ class RAGEnhancedKVCache:
         evicted_texts = evicted_text.split("\n")
         
         # Combine some consecutive evicted texts if any are fewer than 50 characters
-        combined_evicted_texts = []
-        for evicted_text in evicted_texts:
-            if len(combined_evicted_texts) == 0:
-                combined_evicted_texts.append(evicted_text)
-            else:
-                if len(combined_evicted_texts[-1]) + len(evicted_text) < 50: # TODO: mention this in the paper
-                    combined_evicted_texts[-1] += " " + evicted_text
-                else:
-                    combined_evicted_texts.append(evicted_text)
+        # combined_evicted_texts = []
+        # for evicted_text in evicted_texts:
+        #     if len(combined_evicted_texts) == 0:
+        #         combined_evicted_texts.append(evicted_text)
+        #     else:
+        #         if len(combined_evicted_texts[-1]) + len(evicted_text) < 50: # TODO: mention this in the paper
+        #             combined_evicted_texts[-1] += " " + evicted_text
+        #         else:
+        #             combined_evicted_texts.append(evicted_text)
+        
+        # Filter out evicted texts that are too short
+        evicted_texts = [text for text in evicted_texts if len(text) > 10]
                     
-        for evicted_text in combined_evicted_texts:
+        for evicted_text in evicted_texts:
             # Get the score of the most similar context to the evicted text from the vector store
             # score = self.get_similarity_to_vector_store(evicted_text)
             
@@ -216,7 +219,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
             
             if evicted_raw_tokens is not None and input_ids is not None:
                 evicted_text = greedy_generate_text(model, tokenizer, input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
-                print("Evicted text: ", evicted_text)
+                # print("Evicted text: ", evicted_text)
                 rag_cache.store_evicted_tokens(evicted_text)
             
         # prev_input_ids = input_ids
