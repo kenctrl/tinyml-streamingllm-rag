@@ -62,6 +62,42 @@ class StartRecentKVCache:
             ]
             for k, v in past_key_values
         ]
+    
+    def evict_for_space_original(self, past_key_values, num_coming):
+        if past_key_values is None:
+            return None, None
+        seq_len = past_key_values[0][0].size(self.k_seq_dim)
+        
+        if seq_len + num_coming <= self.cache_size:
+            return past_key_values, None
+        
+        # print(f"Evicting tokens...")
+        
+        new_past_key_values = [
+            [
+                torch.cat(
+                    [
+                        self.k_slice(k, 0, self.start_size),
+                        self.k_slice(
+                            k, seq_len - self.recent_size + num_coming, seq_len
+                        ),
+                    ],
+                    dim=self.k_seq_dim,
+                ),
+                torch.cat(
+                    [
+                        self.v_slice(v, 0, self.start_size),
+                        self.v_slice(
+                            v, seq_len - self.recent_size + num_coming, seq_len
+                        ),
+                    ],
+                    dim=self.v_seq_dim,
+                ),
+            ]
+            for k, v in past_key_values
+        ]
+        
+        return new_past_key_values
 
     def evict_for_space(self, past_key_values, num_coming):
         if past_key_values is None:
