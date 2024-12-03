@@ -201,7 +201,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         else:
             most_similar_context = rag_cache.retrieve_relevant_context(prompt)
         
-        prompt = f"USER: {prompt}{most_similar_context}\n\nASSISTANT: "
+        prompt = f"\nUSER: {prompt}{most_similar_context}\n\nASSISTANT: "
         print(prompt, end="")
                 
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
