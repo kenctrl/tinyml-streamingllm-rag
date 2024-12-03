@@ -4,6 +4,7 @@
 # output as file.txt in outputs/ directory
 # handle crashes by skipping the file and continuing
 
+mkdir -p outputs
 for file in data-test/*; do
     echo "Running $file"
     base=$(basename $file)
