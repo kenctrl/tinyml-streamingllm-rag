@@ -30,6 +30,7 @@ def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_l
     pred_token_idx = outputs.logits[:, -1, :].argmax(dim=-1).unsqueeze(1)
     generated_ids = [pred_token_idx.item()]
     pos = 0
+    text = ""
     for _ in range(max_gen_len - 1):
         outputs = model(
             input_ids=pred_token_idx,
@@ -52,12 +53,12 @@ def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_l
 
         now = len(generated_text) - 1
         if now > pos:
-            print(" ".join(generated_text[pos:now]), end=" ", flush=True)
+            text += " ".join(generated_text[pos:now])
             pos = now
 
         if pred_token_idx == tokenizer.eos_token_id:
             break
-    text = " ".join(generated_text[pos:])
+    text += " ".join(generated_text[pos:])
     return text
 
 @torch.no_grad()
@@ -112,10 +113,7 @@ class RAGEnhancedKVCache:
         )
         self.tokenizer = None  # Will be set during initialization
         
-    def store_evicted_tokens(self, evicted_text, tokenizer):
-        if self.tokenizer is None:
-            self.tokenizer = tokenizer
-            
+    def store_evicted_tokens(self, evicted_text):            
         # Store evicted text in vector store, broken into sentences
         sentences = self.text_splitter.split_text(evicted_text)
         self.vector_store.add_texts(sentences)
@@ -145,32 +143,13 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         if kv_cache is not None:
             space_needed = seq_len + max_gen_len
             # Store evicted tokens before they're removed
-            # evicted_raw_tokens is a list of tensors, each tensor is a batch of evicted tokens
+            # evicted_raw_tokens is a list of tensors
             past_key_values, evicted_raw_tokens = kv_cache.evict_for_space(past_key_values, space_needed)
             
             if evicted_raw_tokens is not None:
                 evicted_text = greedy_generate_text(model, tokenizer, input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
                 print("Evicted text: ", evicted_text)
-                rag_cache.store_evicted_tokens(evicted_text, tokenizer)
-                # # Generate text from evicted raw tokens
-                # evicted_raw_tokens = model(
-                #     input_ids=input_ids,
-                #     past_key_values=evicted_raw_tokens,
-                #     use_cache=True,
-                # )
-                # evicted_text = evicted_raw_tokens.logits[:, -1, :].argmax(dim=-1)
-                # generated_text = (
-                #     tokenizer.decode(
-                #         generated_ids,
-                #         skip_special_tokens=True,
-                #         clean_up_tokenization_spaces=True,
-                #         spaces_between_special_tokens=False,
-                #     )
-                #     .strip()
-                #     .split(" ")
-                # )
-                # print("Evicted text: ", evicted_text)
-                # rag_cache.store_evicted_tokens(evicted_text, tokenizer)
+                rag_cache.store_evicted_tokens(evicted_text)
 
         past_key_values = greedy_generate(
             model, tokenizer, input_ids, past_key_values, max_gen_len=max_gen_len
@@ -218,7 +197,7 @@ if __name__ == "__main__":
     parser.add_argument("--data_root", type=str, default="data/")
     parser.add_argument("--enable_streaming", action="store_true")
     parser.add_argument("--start_size", type=int, default=4)
-    parser.add_argument("--recent_size", type=int, default=512)
+    parser.add_argument("--recent_size", type=int, default=2000)
     args = parser.parse_args()
 
     main(args)
