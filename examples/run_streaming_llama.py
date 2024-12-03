@@ -164,11 +164,11 @@ class RAGEnhancedKVCache:
                     
         for evicted_text in combined_evicted_texts:
             # Get the score of the most similar context to the evicted text from the vector store
-            # score = self.get_similarity_to_vector_store(evicted_text)
+            score = self.get_similarity_to_vector_store(evicted_text)
             
             # If the score is less than 0.9, store the evicted text in the vector store
-            # if score < 0.9:
-            self.vector_store.add_texts([evicted_text])
+            if score < 0.9:
+                self.vector_store.add_texts([evicted_text])
             
         # print(f"\n\nStored {len(evicted_texts)} evicted tokens in vector store\n\n")
 
@@ -178,11 +178,11 @@ class RAGEnhancedKVCache:
         if len(results) == 0 or (len(results) == 1 and results[0].page_content == ""):
             return ""
         out = "\n\nTop 3 contexts (may not be relevant):\n"
-        counter = 1
+        # counter = 1
         for context in results:
             if context.page_content != " " and context.page_content != "" and context.page_content != "Top 3 context (may not be relevant):":
-                out += f"{counter}. {context.page_content}\n"
-                counter += 1
+                out += f"{context.page_content}\n"
+                # counter += 1
         return out
 
 @torch.no_grad()
