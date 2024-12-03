@@ -163,7 +163,7 @@ class RAGEnhancedKVCache:
         print(f"\n\nStored {len(evicted_texts)} evicted tokens in vector store\n\n")
 
     def retrieve_relevant_context(self, text):
-        results = self.vector_store.similarity_search(text, k=2)
+        results = self.vector_store.similarity_search(text, k=3)
         return " ".join([doc.page_content for doc in results])
 
 @torch.no_grad()
