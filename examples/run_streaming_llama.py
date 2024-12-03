@@ -278,7 +278,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--model_name_or_path", type=str, default="lmsys/vicuna-13b-v1.3"
+        "--model_name_or_path", type=str, default="lmsys/vicuna-7b-v1.3"
     )
     parser.add_argument("--data_root", type=str, default="data/")
     parser.add_argument("--benchmark_file_name", type=str, default="mt_bench.jsonl")
