@@ -196,6 +196,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
     rag_cache = RAGEnhancedKVCache()
     # prev_input_ids = None
     times = []
+    tokens_per_second = []
     
     for idx, prompt in enumerate(prompts):
         start_time = time.time()
@@ -229,9 +230,10 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         )
         end_time = time.time()
         times.append(end_time - start_time)
+        tokens_per_second.append(len(input_ids[0]) / (end_time - start_time))
         # print(f"\nTime taken: {end_time - start_time} seconds")
         
-    return times
+    return times, tokens_per_second
 
 
 def main(args):
@@ -259,7 +261,7 @@ def main(args):
     else:
         kv_cache = None
 
-    times = streaming_inference(
+    times, tokens_per_second = streaming_inference(
         model,
         tokenizer,
         prompts,
@@ -268,6 +270,8 @@ def main(args):
     
     print("All times: ", times)
     print(f"Average time per token: {sum(times) / len(times)}")
+    print("All tokens per second: ", tokens_per_second)
+    print(f"Average tokens per second: {sum(tokens_per_second) / len(tokens_per_second)}")
 
 
 if __name__ == "__main__":
