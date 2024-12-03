@@ -63,6 +63,7 @@ def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_l
 
 @torch.no_grad()
 def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
+    print("----------------------------------------")
     print("Generating text...")
     outputs = model(
         input_ids=input_ids,
@@ -101,6 +102,7 @@ def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
         if pred_token_idx == tokenizer.eos_token_id:
             break
     print(" ".join(generated_text[pos:]), flush=True)
+    print("----------------------------------------", flush=True)
     return past_key_values
 
 
@@ -181,7 +183,8 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         for idx, context in enumerate(most_similar_context):
             prompt += f"{idx+1}. {context}\n"
         prompt += "\n\nASSISTANT: "
-        print("\n" + prompt, end="")
+        print("----------------------------------------\n" + prompt, end="")
+        print("----------------------------------------", flush=True)
                 
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
         input_ids = input_ids.to(model.device)

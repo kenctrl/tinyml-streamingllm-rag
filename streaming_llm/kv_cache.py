@@ -28,7 +28,7 @@ class StartRecentKVCache:
         k_seq_dim=2,
         v_seq_dim=2,
     ):
-        print(f"StartRecentKVCache: {start_size}, {recent_size}")
+        # print(f"StartRecentKVCache: {start_size}, {recent_size}")
         self.start_size = start_size
         self.recent_size = recent_size
         self.cache_size = start_size + recent_size
@@ -71,7 +71,7 @@ class StartRecentKVCache:
         if seq_len + num_coming <= self.cache_size:
             return past_key_values, None
         
-        print(f"Evicting tokens...")
+        # print(f"Evicting tokens...")
         
         new_past_key_values = [
             [
