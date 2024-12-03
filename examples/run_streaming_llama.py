@@ -9,6 +9,7 @@ import os
 import time
 import re
 import sys
+import time
 
 from tqdm import tqdm
 from streaming_llm.utils import load, download_url, load_jsonl
@@ -59,8 +60,10 @@ def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
 
 @torch.no_grad()
 def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
+    times = []
     past_key_values = None
     for idx, prompt in enumerate(prompts):
+        start_time = time.time()
         prompt = "USER: " + prompt + "\n\nASSISTANT: "
         print("\n" + prompt, end="")
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids
@@ -73,13 +76,16 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         past_key_values = greedy_generate(
             model, tokenizer, input_ids, past_key_values, max_gen_len=max_gen_len
         )
+        end_time = time.time()
+        times.append(end_time - start_time)
+    return times
 
 
 def main(args):
     model_name_or_path = args.model_name_or_path
     model, tokenizer = load(model_name_or_path)
-    test_filepath = os.path.join(args.data_root, "mt_bench.jsonl")
-    print(f"Loading data from {test_filepath} ...")
+    test_filepath = os.path.join(args.data_root, "mini_mt_bench.jsonl")
+    print(f"Loading mini mt bench data from {test_filepath} ...")
 
     if not os.path.exists(test_filepath):
         download_url(
@@ -100,12 +106,14 @@ def main(args):
     else:
         kv_cache = None
 
-    streaming_inference(
+    times = streaming_inference(
         model,
         tokenizer,
         prompts,
         kv_cache,
     )
+
+    print(f"Average time per token: {sum(times) / sum(len(p) for p in prompts)}")
 
 
 if __name__ == "__main__":
