@@ -167,7 +167,7 @@ class RAGEnhancedKVCache:
             score = self.get_similarity_to_vector_store(evicted_text)
             
             # If the score is less than 0.9, store the evicted text in the vector store
-            if score < 0.9:
+            if evicted_text != "" and evicted_text != " " and score < 0.9:
                 self.vector_store.add_texts([evicted_text])
             
         # print(f"\n\nStored {len(evicted_texts)} evicted tokens in vector store\n\n")
@@ -225,8 +225,8 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
 def main(args):
     model_name_or_path = args.model_name_or_path
     model, tokenizer = load(model_name_or_path)
-    test_filepath = os.path.join(args.data_root, "mt_bench.jsonl")
-    print(f"Loading data from {test_filepath} ...")
+    test_filepath = os.path.join(args.data_root, "mini_mt_bench.jsonl")
+    print(f"Loading mini mt bench data from {test_filepath} ...")
 
     if not os.path.exists(test_filepath):
         download_url(
