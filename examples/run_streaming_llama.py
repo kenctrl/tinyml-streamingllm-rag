@@ -115,16 +115,29 @@ class RAGEnhancedKVCache:
             chunk_overlap=50
         )
         self.tokenizer = None  # Will be set during initialization
+    
+    # def clear_lru_vector_store(self):
+        
+    
+    def get_similarity_to_vector_store(self, text):
+        """
+        Get the score of the most similar context to the text from the vector store.
+        """
+        score = self.vector_store.similarity_search_with_score(text, k=1)
+        return score[0][1]
         
     def store_evicted_tokens(self, evicted_text):            
-        # Store evicted text in vector store, broken into sentences
-        sentences = self.text_splitter.split_text(evicted_text)
-        self.vector_store.add_texts(sentences)
+        # Get the score of the most similar context to the evicted text from the vector store
+        score = self.get_similarity_to_vector_store(evicted_text)
+        
+        # If the score is less than 0.5, store the evicted text in the vector store
+        if score < 0.5:
+            self.vector_store.add_texts([evicted_text])
             
-        print("Stored evicted tokens in vector store")
+        print("\n\nStored evicted tokens in vector store\n\n")
 
     def retrieve_relevant_context(self, text):
-        results = self.vector_store.similarity_search(text, k=3)
+        results = self.vector_store.similarity_search(text, k=2)
         return " ".join([doc.page_content for doc in results])
 
 @torch.no_grad()
@@ -136,10 +149,11 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
     for idx, prompt in enumerate(prompts):
         most_similar_context = rag_cache.retrieve_relevant_context(prompt)
         
-        prompt = "USER: " + prompt + "\n\nASSISTANT: "
+        print("Printing prompt...")
+        prompt = f"USER: {prompt}\n\nContext from previous conversations (NOTE: this may not be relevant to the current conversation): {most_similar_context}\n\nASSISTANT: "
         print("\n" + prompt, end="")
         
-        print("\nMost similar context: ", most_similar_context, "\n\n")
+        print("\n\nMost similar context: ", most_similar_context, "\n\n")
         
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
         input_ids = input_ids.to(model.device)
@@ -153,7 +167,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
             
             if evicted_raw_tokens is not None and prev_input_ids is not None:
                 evicted_text = greedy_generate_text(model, tokenizer, prev_input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
-                print("Evicted text: ", evicted_text)
+                # print("Evicted text: ", evicted_text)
                 rag_cache.store_evicted_tokens(evicted_text)
             
         prev_input_ids = input_ids
