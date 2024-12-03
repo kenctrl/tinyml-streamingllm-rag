@@ -176,7 +176,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
     for idx, prompt in enumerate(prompts):
         most_similar_context = rag_cache.retrieve_relevant_context(prompt)
         
-        prompt = f"USER: {prompt}{chr(10)}{chr(10)}Top 3 most similar context from previous conversations, note that these may not be relevant to the current conversation:{chr(10)}{'\n'.join(f'{i+1}. {c}' for i, c in enumerate(most_similar_context))}{chr(10)}{chr(10)}ASSISTANT: "
+        prompt = f"USER: {prompt}{chr(10)}{chr(10)}Top 3 most similar context from previous conversations, note that these may not be relevant to the current conversation:{chr(10)}{chr(10).join(f'{i+1}. {c}' for i, c in enumerate(most_similar_context))}{chr(10)}{chr(10)}ASSISTANT: "
         print("----------------------------------------\n" + prompt + "\n----------------------------------------", flush=True)
                 
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
