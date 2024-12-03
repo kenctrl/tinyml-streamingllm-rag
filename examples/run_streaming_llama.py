@@ -178,14 +178,14 @@ class RAGEnhancedKVCache:
         # return " ".join([doc.page_content for doc in results])
         if len(results) == 0 or (len(results) == 1 and results[0].page_content == ""):
             return ""
-        out = "\n\nTop 3 contexts (may not be relevant):\n"
+        out = "Top 3 contexts (may not be relevant):\n"
         # counter = 1
         for context in results:
-            if context.page_content != " " and context.page_content != "" and context.page_content != "Top 3 context (may not be relevant):":
+            if context.page_content != " " and context.page_content != "" and context.page_content != "Top 3 contexts (may not be relevant):":
                 out += f"{context.page_content}\n"
                 # counter += 1
                 
-        return out.strip()
+        return f"\n\n{out.strip()}"
 
 @torch.no_grad()
 def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
