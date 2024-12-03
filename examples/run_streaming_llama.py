@@ -145,8 +145,11 @@ class RAGEnhancedKVCache:
         
     def store_evicted_tokens(self, evicted_text: str):            
         # If evicted_text is badly formatted, return
-        if evicted_text is None or evicted_text[0] == "�":
+        if evicted_text is None or evicted_text == "" or not evicted_text or evicted_text[0] == "�":
             # print("\n\nBadly formatted evicted text.")
+            return
+        # If len(evicted_text) >= 10 and it's all the same character, return
+        if len(evicted_text) >= 10 and evicted_text.replace(evicted_text[0], "") == "":
             return
         
         # Split evicted_text by newlines
