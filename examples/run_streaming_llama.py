@@ -152,9 +152,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         print("Printing prompt...")
         prompt = f"USER: {prompt}\n\nContext from previous conversations (NOTE: this may not be relevant to the current conversation): {most_similar_context}\n\nASSISTANT: "
         print("\n" + prompt, end="")
-        
-        print("\n\nMost similar context: ", most_similar_context, "\n\n")
-        
+                
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
         input_ids = input_ids.to(model.device)
         seq_len = input_ids.shape[1]
