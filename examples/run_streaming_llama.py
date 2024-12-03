@@ -63,8 +63,6 @@ def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_l
 
 @torch.no_grad()
 def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
-    print("----------------------------------------")
-    print("Generating text...")
     outputs = model(
         input_ids=input_ids,
         past_key_values=past_key_values,
@@ -102,7 +100,6 @@ def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
         if pred_token_idx == tokenizer.eos_token_id:
             break
     print(" ".join(generated_text[pos:]), flush=True)
-    print("----------------------------------------", flush=True)
     return past_key_values
 
 
@@ -154,35 +151,49 @@ class RAGEnhancedKVCache:
         # Split evicted_text by newlines
         evicted_texts = evicted_text.split("\n")
         
+        # Combine some consecutive evicted texts if any are fewer than 50 characters
+        combined_evicted_texts = []
         for evicted_text in evicted_texts:
+            if len(combined_evicted_texts) == 0:
+                combined_evicted_texts.append(evicted_text)
+            else:
+                if len(combined_evicted_texts[-1]) + len(evicted_text) < 50:
+                    combined_evicted_texts[-1] += " " + evicted_text
+                else:
+                    combined_evicted_texts.append(evicted_text)
+                    
+        for evicted_text in combined_evicted_texts:
             # Get the score of the most similar context to the evicted text from the vector store
             score = self.get_similarity_to_vector_store(evicted_text)
             
-            # If the score is less than 0.8, store the evicted text in the vector store
-            # if score < 0.8:
-            self.vector_store.add_texts([evicted_text])
+            # If the score is less than 0.9, store the evicted text in the vector store
+            if score < 0.9:
+                self.vector_store.add_texts([evicted_text])
             
         # print(f"\n\nStored {len(evicted_texts)} evicted tokens in vector store\n\n")
 
     def retrieve_relevant_context(self, text):
         results = self.vector_store.similarity_search(text, k=3)
         # return " ".join([doc.page_content for doc in results])
-        out = "Top 3 most similar context from previous conversations (note that these may not be relevant to the current conversation):\n"
-        for idx, context in enumerate(results):
-            out += f"{idx+1}. {context.page_content}\n"
+        out = "Top 3 contexts (may not be relevant):\n"
+        counter = 1
+        for context in results:
+            if context.page_content != " " and context.page_content != "" and context.page_content != "Top 3 context (may not be relevant):":
+                out += f"{counter}. {context.page_content}\n"
+                counter += 1
         return out
 
 @torch.no_grad()
 def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
     past_key_values = None
     rag_cache = RAGEnhancedKVCache()
-    prev_input_ids = None
+    # prev_input_ids = None
     
     for idx, prompt in enumerate(prompts):
         most_similar_context = rag_cache.retrieve_relevant_context(prompt)
         
         prompt = f"USER: {prompt}\n\n{most_similar_context}\n\nASSISTANT: "
-        print(f"----------------------------------------\n{prompt}\n----------------------------------------", flush=True)
+        print(f"----------------------------------------\n{prompt}", end="")
                 
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
         input_ids = input_ids.to(model.device)
@@ -199,7 +210,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
                 # print("Evicted text: ", evicted_text)
                 rag_cache.store_evicted_tokens(evicted_text)
             
-        prev_input_ids = input_ids
+        # prev_input_ids = input_ids
 
         past_key_values = greedy_generate(
             model, tokenizer, input_ids, past_key_values, max_gen_len=max_gen_len
