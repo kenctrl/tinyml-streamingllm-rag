@@ -65,6 +65,7 @@ def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_l
 
 @torch.no_grad()
 def greedy_generate(model, tokenizer, input_ids, past_key_values, max_gen_len):
+    print("Generating text...")
     outputs = model(
         input_ids=input_ids,
         past_key_values=past_key_values,
@@ -134,10 +135,11 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
     
     for idx, prompt in enumerate(prompts):
         most_similar_context = rag_cache.retrieve_relevant_context(prompt)
-        print("Prompt: ", prompt, "\nMost similar context: ", most_similar_context)
         
         prompt = "USER: " + prompt + "\n\nASSISTANT: "
         print("\n" + prompt, end="")
+        
+        print("\nMost similar context: ", most_similar_context, "\n\n")
         
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
         input_ids = input_ids.to(model.device)
