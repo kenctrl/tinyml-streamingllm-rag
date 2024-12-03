@@ -126,12 +126,17 @@ class RAGEnhancedKVCache:
         score = self.vector_store.similarity_search_with_score(text, k=1)
         return score[0][1]
         
-    def store_evicted_tokens(self, evicted_text):            
+    def store_evicted_tokens(self, evicted_text: str):            
+        # If evicted_text is badly formatted, return
+        if "�" in evicted_text:
+            print("\n\nBadly formatted evicted text: ", evicted_text, "\n\n")
+            return
+        
         # Get the score of the most similar context to the evicted text from the vector store
         score = self.get_similarity_to_vector_store(evicted_text)
         
         # If the score is less than 0.5, store the evicted text in the vector store
-        if score < 0.5:
+        if score < 0.8:
             self.vector_store.add_texts([evicted_text])
             print("\n\nStored evicted tokens in vector store\n\n")
 
