@@ -148,7 +148,7 @@ class RAGEnhancedKVCache:
     def store_evicted_tokens(self, evicted_text: str):            
         # If evicted_text is badly formatted, return
         if evicted_text is None or evicted_text[0] == "�":
-            print("\n\nBadly formatted evicted text.")
+            # print("\n\nBadly formatted evicted text.")
             return
         
         # Split evicted_text by newlines
@@ -162,7 +162,7 @@ class RAGEnhancedKVCache:
             # if score < 0.8:
             self.vector_store.add_texts([evicted_text])
             
-        print(f"\n\nStored {len(evicted_texts)} evicted tokens in vector store\n\n")
+        # print(f"\n\nStored {len(evicted_texts)} evicted tokens in vector store\n\n")
 
     def retrieve_relevant_context(self, text):
         results = self.vector_store.similarity_search(text, k=3)
@@ -183,7 +183,8 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         for idx, context in enumerate(most_similar_context):
             prompt += f"{idx+1}. {context}\n"
         prompt += "\n\nASSISTANT: "
-        print("----------------------------------------\n" + prompt, end="")
+        print("----------------------------------------", flush=True)
+        print("\n" + prompt, flush=True)
         print("----------------------------------------", flush=True)
                 
         input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
