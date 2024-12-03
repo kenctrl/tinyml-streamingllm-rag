@@ -113,9 +113,28 @@ class RAGEnhancedKVCache:
             chunk_overlap=50
         )
         self.tokenizer = None  # Will be set during initialization
-    
-    # def clear_lru_vector_store(self):
         
+        self.vector_access_count = 0
+        self.vector_access_history = []
+        self.max_vectors = 100  # Maximum vectors to store
+        self.clear_frequency = 10  # Clear LRU every 10 iteration
+    
+    def clear_lru_vector_store(self):
+        """Clear the least recently used vector from the vector store"""
+        if len(self.vector_access_history) > 0:
+            print("Clearing LRU vector store...")
+            lru_index = self.vector_access_history.pop(0)
+            # FAISS doesn't support direct deletion, so we need to rebuild the index
+            # excluding the LRU vector
+            current_vectors = self.vector_store.docstore._dict
+            filtered_texts = [
+                doc.page_content for idx, doc in current_vectors.items() 
+                if idx != str(lru_index)
+            ]
+            if filtered_texts:
+                self.vector_store = FAISS.from_texts(filtered_texts, self.embeddings)
+            else:
+                self.vector_store = FAISS.from_texts([""], self.embeddings)
     
     def get_similarity_to_vector_store(self, text):
         """
@@ -126,17 +145,22 @@ class RAGEnhancedKVCache:
         
     def store_evicted_tokens(self, evicted_text: str):            
         # If evicted_text is badly formatted, return
-        if evicted_text is None or evicted_text[0] == "":
+        if evicted_text is None or evicted_text[0] == "�":
             print("\n\nBadly formatted evicted text.")
             return
         
-        # Get the score of the most similar context to the evicted text from the vector store
-        score = self.get_similarity_to_vector_store(evicted_text)
+        # Split evicted_text by newlines
+        evicted_texts = evicted_text.split("\n")
         
-        # If the score is less than 0.8, store the evicted text in the vector store
-        # if score < 0.8:
-        self.vector_store.add_texts([evicted_text])
-        print("\n\nStored evicted tokens in vector store\n\n")
+        for evicted_text in evicted_texts:
+            # Get the score of the most similar context to the evicted text from the vector store
+            score = self.get_similarity_to_vector_store(evicted_text)
+            
+            # If the score is less than 0.8, store the evicted text in the vector store
+            # if score < 0.8:
+            self.vector_store.add_texts([evicted_text])
+            
+        print(f"\n\nStored {len(evicted_texts)} evicted tokens in vector store\n\n")
 
     def retrieve_relevant_context(self, text):
         results = self.vector_store.similarity_search(text, k=2)
