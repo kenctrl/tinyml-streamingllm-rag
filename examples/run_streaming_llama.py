@@ -164,10 +164,10 @@ class RAGEnhancedKVCache:
                     
         for evicted_text in combined_evicted_texts:
             # Get the score of the most similar context to the evicted text from the vector store
-            score = self.get_similarity_to_vector_store(evicted_text)
+            # score = self.get_similarity_to_vector_store(evicted_text)
             
             # If the score is less than 0.9, store the evicted text in the vector store
-            if evicted_text != "" and evicted_text != " " and score < 0.9:
+            if evicted_text != "" and evicted_text != " ":
                 self.vector_store.add_texts([evicted_text])
             
         # print(f"\n\nStored {len(evicted_texts)} evicted tokens in vector store\n\n")
