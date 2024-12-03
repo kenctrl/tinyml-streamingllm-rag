@@ -50,6 +50,7 @@ def greedy_generate_text(model, tokenizer, input_ids, past_key_values, max_gen_l
             .strip()
             .split(" ")
         )
+        print("Generated text: ", generated_text)
 
         now = len(generated_text) - 1
         if now > pos:
@@ -128,6 +129,7 @@ class RAGEnhancedKVCache:
 def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=1000):
     past_key_values = None
     rag_cache = RAGEnhancedKVCache()
+    prev_input_ids = None
     
     for idx, prompt in enumerate(prompts):
         most_similar_context = rag_cache.retrieve_relevant_context(prompt)
@@ -136,7 +138,7 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
         prompt = "USER: " + prompt + "\n\nASSISTANT: "
         print("\n" + prompt, end="")
         
-        input_ids = tokenizer(prompt, return_tensors="pt").input_ids        
+        input_ids = tokenizer(prompt, return_tensors="pt").input_ids     
         input_ids = input_ids.to(model.device)
         seq_len = input_ids.shape[1]
         
@@ -146,10 +148,12 @@ def streaming_inference(model, tokenizer, prompts, kv_cache=None, max_gen_len=10
             # evicted_raw_tokens is a list of tensors
             past_key_values, evicted_raw_tokens = kv_cache.evict_for_space(past_key_values, space_needed)
             
-            if evicted_raw_tokens is not None:
-                evicted_text = greedy_generate_text(model, tokenizer, input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
+            if evicted_raw_tokens is not None and prev_input_ids is not None:
+                evicted_text = greedy_generate_text(model, tokenizer, prev_input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
                 print("Evicted text: ", evicted_text)
                 rag_cache.store_evicted_tokens(evicted_text)
+            
+        prev_input_ids = input_ids
 
         past_key_values = greedy_generate(
             model, tokenizer, input_ids, past_key_values, max_gen_len=max_gen_len
