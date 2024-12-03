@@ -153,17 +153,17 @@ class RAGEnhancedKVCache:
         evicted_texts = evicted_text.split("\n")
         
         # Combine some consecutive evicted texts if any are fewer than 50 characters
-        combined_evicted_texts = []
-        for evicted_text in evicted_texts:
-            if len(combined_evicted_texts) == 0:
-                combined_evicted_texts.append(evicted_text)
-            else:
-                if len(combined_evicted_texts[-1]) < 50:
-                    combined_evicted_texts[-1] += " " + evicted_text
-                else:
-                    combined_evicted_texts.append(evicted_text)
+        # combined_evicted_texts = []
+        # for evicted_text in evicted_texts:
+        #     if len(combined_evicted_texts) == 0:
+        #         combined_evicted_texts.append(evicted_text)
+        #     else:
+        #         if len(combined_evicted_texts[-1]) < 50:
+        #             combined_evicted_texts[-1] += " " + evicted_text
+        #         else:
+        #             combined_evicted_texts.append(evicted_text)
                     
-        for evicted_text in combined_evicted_texts:
+        for evicted_text in evicted_texts:
             # Get the score of the most similar context to the evicted text from the vector store
             # score = self.get_similarity_to_vector_store(evicted_text)
             
