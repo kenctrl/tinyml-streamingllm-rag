@@ -1,0 +1,16 @@
+Loading model from lmsys/vicuna-7b-v1.3 ...
+Loading coding_bench.jsonl data from data/coding_bench.jsonl ...
+
+USER: Develop a Python program that reads all the text files under a directory and returns top-5 words with the most number of occurrences.
+
+ASSISTANT: 以下是一个简单的 Python 程序，可以读取指定目录下的所有文本文件，并返回在文件中最常出现的前五个单词：
+```python
+import os
+
+def find_most_common_words(directory):
+    word_counts = {}
+    for filename in os.listdir(directory):
+        if filename.endswith('.txt'):
+            with open(os.path.join(directory, filename), 'r', encoding='utf-8') as file:
+                for line in file:
+                    for 
