@@ -1,14 +1,0 @@
-You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama.LlamaTokenizer'>. If you see this, DO NOT PANIC! This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thouroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
-normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
-normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.62s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.15s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.38s/it]
-Traceback (most recent call last):
-  File "examples/run_streaming_llama.py", line 303, in <module>
-    main(args)
-  File "examples/run_streaming_llama.py", line 259, in main
-    list_data = load_jsonl(test_filepath)
-  File "/home/kenchoi/streaming-llm/streaming_llm/utils.py", line 111, in load_jsonl
-    list_data_dict.append(json.loads(line))
-  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/json/__init__.py", line 337, in loads
-    raise JSONDecodeError("Unexpected UTF-8 BOM (decode using utf-8-sig)",
-json.decoder.JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
