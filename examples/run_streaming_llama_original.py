@@ -100,11 +100,11 @@ def main(args):
     list_data = load_jsonl(test_filepath)
     prompts = []
     
-    if args.benchmark_file_name == "east-of-eden.jsonl":
-        # Load the book from data-books/east-of-eden.txt
-        with open(os.path.join(args.data_root, "east-of-eden.txt"), "r") as file:
-            book = file.read()
-    prompts.append(book)
+    # if args.benchmark_file_name == "east-of-eden.jsonl":
+    #     # Load the book from data-books/east-of-eden.txt
+    #     with open(os.path.join(args.data_root, "east-of-eden.txt"), "r") as file:
+    #         book = file.read()
+    # prompts.append(book)
     
     for sample in list_data:
         prompts += sample["turns"]
