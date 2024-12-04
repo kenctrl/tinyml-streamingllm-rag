@@ -148,9 +148,12 @@ class RAGEnhancedKVCache:
         if evicted_text is None or evicted_text == "" or not evicted_text or evicted_text[0] == "�":
             # print("\n\nBadly formatted evicted text.")
             return
-        # If len(evicted_text) >= 10 and it's all the same character, return
-        if len(evicted_text) >= 10 and evicted_text.replace(evicted_text[0], "") == "":
+        # If len(evicted_text) >= 3 and there are only a few unique characters other than punctuation, return
+        if len(evicted_text) >= 3 and len(set(evicted_text.replace(".", "").replace(",", "").replace("!", "").replace("?", "").replace("-", "").replace("/", "").replace("\\", "").replace("\n", ""))) < 5:
             return
+        # If evicted_text doesn't have a period, return
+        # if "." not in evicted_text:
+        #     return
         
         # Split evicted_text by newlines
         evicted_texts = evicted_text.split("\n")
