@@ -1,0 +1,28 @@
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama.LlamaTokenizer'>. If you see this, DO NOT PANIC! This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thouroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "examples/run_streaming_llama_original.py", line 144, in <module>
+    main(args)
+  File "examples/run_streaming_llama_original.py", line 88, in main
+    model, tokenizer = load(model_name_or_path)
+  File "/home/kenchoi/streaming-llm/streaming_llm/utils.py", line 58, in load
+    model = AutoModelForCausalLM.from_pretrained(
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/auto/auto_factory.py", line 563, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/modeling_utils.py", line 3175, in from_pretrained
+    ) = cls._load_pretrained_model(
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/modeling_utils.py", line 3548, in _load_pretrained_model
+    state_dict = load_state_dict(shard_file)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/modeling_utils.py", line 488, in load_state_dict
+    return torch.load(checkpoint_file, map_location=map_location)
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/serialization.py", line 712, in load
+    return _load(opened_zipfile, map_location, pickle_module, **pickle_load_args)
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/serialization.py", line 1049, in _load
+    result = unpickler.load()
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/serialization.py", line 1019, in persistent_load
+    load_tensor(dtype, nbytes, key, _maybe_decode_ascii(location))
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/serialization.py", line 997, in load_tensor
+    storage = zip_file.get_storage_from_record(name, numel, torch._UntypedStorage).storage()._untyped()
+KeyboardInterrupt
