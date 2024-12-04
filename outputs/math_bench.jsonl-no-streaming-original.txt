@@ -1,0 +1,160 @@
+Loading model from lmsys/vicuna-7b-v1.3 ...
+Loading math_bench.jsonl data from data/math_bench.jsonl ...
+
+USER: The vertices of a triangle are at points (0, 0), (-1, 1), and (3, 3). What is the area of the triangle?
+
+ASSISTANT: 我们可以使用三角形面积公式来计算这个三角形的面积。三角形面积公式是：
+
+面积 = (边长1 ×边长2) / 2
+
+在这个例子中，我们有三个边长：
+
+* 边长1 = 0 - (-1) = 1
+* 边长2 = 3 - (3) = 1
+* 边长3 = (-1) - (0) = 1
+
+将这些边长代入公式，我们得到：
+
+面积 = (1 × 1) / 2 = 0.5
+
+所以，这个三角形的面积是0.5平方单位。
+
+USER: What's area of the circle circumscribing the triangle?
+
+ASSISTANT: 要计算圆占三角形面积，我们需要找到圆的半径。圆的半径 r 可以通过以下公式计算：
+
+r = √(s(s - a)(s - b)(s - c))
+
+其中，s 是三角形的斜边长度，a、b、c 是三角形的边长。
+
+在这个例子中，三角形的边长分别为 3、4、5。我们可以使用以下公式计算斜边长度 s：
+
+s = √(a² + b² + c² - 2(ab + bc + ca))
+
+将三角形的边长代入公式，我们得到：
+
+s = √(3² + 4² + 5² - 2(3)(4)(5))
+s = √(36 + 16 + 25 - 30)
+s = √(91 - 30)
+s = √61
+s ≈ 7.10694
+
+现在我们可以计算圆的半径：
+
+r = √(7.10694(7.10694 - 3)(7.10694 - 4)(7.10694 - 5))
+r ≈ 7.10694
+
+最后，我们可以计算圆占三角形的面积：
+
+面积 = πr²
+面积 ≈ 3.14159 × 7.10694²
+面积 ≈ 22.74917
+面积 ≈ 22.75平方单位
+
+所以，这个三角形的圆占三角形面积大约为 22.75平方单位。
+
+USER: A tech startup invests $8000 in software development in the first year, and then invests half of that amount in software development in the second year.
+What's the total amount the startup invested in software development over the two years?
+
+ASSISTANT: 在第一年，该创业公司投资了8000美元的软件开发。在第二年，该创业公司投资了半个那个投资。
+
+所以，该创业公司总共投资了8000美元 + 4000美元 = 12000美元的软件开发。
+
+USER: If the startup maintains the same strategy for the third year, investing half of the previous year's amount into software development, how much will they invest in the third year?
+
+ASSISTANT: 如果在第三年，创业公司继续采用相同的策略，投资50%的上一年的投资额，那么在第三年投资多少？
+
+在第三年，创业公司将投资的软件开发预算为：
+
+8000美元（第一年投资） + (8000美元 × 0.5)（第二年投资） = 16000美元
+
+因此，在第三年，创业公司将投资16000美元的软件开发。
+
+USER: In a survey conducted at a local high school, preferences for a new school color were measured: 58% of students liked the color blue, 45% preferred green, and 22% liked both colors. If we randomly pick a student from the school, what's the probability that they would like neither blue nor green?
+
+ASSISTANT: 首先，我们需要计算总的感兴趣度，即所有学生都喜欢的颜色的比例。这可以通过将所有学生的喜好积分起来得到：
+
+58% + 45% + 22% = 125%
+
+然后，我们需要计算没有感兴趣的学生的比例。这可以通过将所有学生的感兴趣度除以总的感兴趣度得到：
+
+1 - 125% = 75%
+
+现在，我们需要计算没有感兴趣的学生的概率。这可以通过将学生的数量除以总学生数量得到：
+
+75% / (58% + 45% + 22%) = 0.225
+
+因此，在随机选择一名学生时，概率为0.225，他们不喜欢蓝色和绿色。
+
+USER: If we select a student liked green, what's the probability that he or she would dislike both colors?
+
+ASSISTANT: 如果我们选择一名喜欢绿色的学生，那么他或她不喜欢双色的概率是什么？
+
+我们已经知道这名学生喜欢绿色的概率为45%，而不喜欢蓝色和绿色的概率也为45%。因此，这名学生不喜欢双色的概率为：
+
+(45% × 45%) = 20.5%
+
+所以，这名学生不喜欢双色的概率为20.5%。
+
+USER: When rolling two dice, what is the probability that you roll a total number that is at least 3?
+
+ASSISTANT: 在两个骰子上掷出一个总数，至少为3的概率是多少？
+
+在掷骰子时，每次掷出1对1的结果，每次掷出2对2的结果，每次掷出3对3的结果，每次掷出4对4的结果，每次掷出5对5的结果，每次掷出6对6的结果，每次掷出7对7的结果，每次掷出8对8的结果，每次掷出9对9的结果，每次掷出10对10的结果，每次掷出11对11的结果，每次掷出12对12的结果，每次掷出13对13的结果，每次掷出14对14的结果，每次掷出15对15的结果，每次掷出16对16的结果，每次掷出17对17的结果，每次掷出18对18的结果，每次掷出19对19的结果，每次掷出20对20的结果，每次掷出21对21的结果，每次掷出22对22的结果，每次掷出23对23的结果，每次掷出24对24的结果，每次掷出25对25的结果，每次掷出26对26的结果，每次掷出27对27的结果，每次掷出28对28的结果，每次掷出29对29的结果，每次掷出30的结果，每次掷出310的结果，每次掷出3111的结果，每次��
+
+USER: Continue from previous question. What's the probability that you roll a number which is even or at least 3?
+
+ASSISTANT: 3, 3, 3.
+
+USER: Some people got on a bus at the terminal. At the first bus stop, half of the people got down and 4 more people got in. Then at the second bus stop, 6 people got down and 8 more got in. If there were a total of 25 people heading to the third stop, how many people got on the bus at the terminal?
+
+ASSISTANT: 3 are 3, 3, 3, 3, 3, 15, 3
+
+USER: If the ticket is $2 per person, how much is the total money earned by the bus?
+
+ASSISTANT: 3 are square rectangle square root
+
+USER: x+y = 4z, x*y = 4z^2, express x-y in z
+
+ASSISTANT: 1, and, the first, the first, A, A, A, the, 3, 3,
+
+USER: Express z-x in y
+
+ASSISTANT: 
+
+USER: How many integers are in the solution of the inequality |x + 5| < 10
+
+ASSISTANT: 3
+
+USER: What about |x + 10| < 5
+
+ASSISTANT: �
+
+USER: When a number is divided by 10, the remainder is 4. What is the remainder when twice the number is divided by 4?
+
+ASSISTANT: 3 and
+
+USER: What about when twice the number is divided by 5?
+
+ASSISTANT: 
+
+USER: Benjamin went to a bookstore and purchased a variety of books. He bought 5 copies of a sci-fi novel, each priced at $20, 3 copies of a history book priced at $30 each, and 2 copies of a philosophy book for $45 each.
+What was the total cost of his purchases?
+
+ASSISTANT: 
+
+USER: Suppose Benjamin decides to sell each of these books at a 25% markup from the price he purchased them. What would be his total revenue if he sold all the books he bought?
+
+ASSISTANT: 
+
+USER: Given that f(x) = 4x^3 - 9x - 14, find the value of f(2).
+
+ASSISTANT: √�. √, √.
+
+USER: Find x such that f(x) = 0.
+
+ASSISTANT: 
+All times:  [8.975258111953735, 23.568559408187866, 5.132944345474243, 8.625121593475342, 13.607036828994751, 8.206828594207764, 25.93698024749756, 0.4997212886810303, 1.2612860202789307, 0.3634054660797119, 1.3464818000793457, 0.23666596412658691, 0.14561986923217773, 0.10639500617980957, 0.16781330108642578, 0.15955352783203125, 0.1896069049835205, 0.24080967903137207, 0.5657515525817871, 0.15753746032714844]
+Average time per token: 4.974668848514557
+All tokens per second:  [5.125200793806108, 1.0607351754946397, 12.66329724718543, 5.565138935120709, 6.0262936766121715, 4.142891448226006, 1.2723146520953954, 72.04015681424897, 68.9772173806859, 85.30416543927339, 25.99366734696118, 71.83119914491427, 212.88303693346475, 216.1755596040811, 244.3191316454977, 144.1522497967771, 443.021840408717, 211.78550714880464, 70.70241313074868, 145.9970216114777]
+Average tokens per second: 102.45195191670965
