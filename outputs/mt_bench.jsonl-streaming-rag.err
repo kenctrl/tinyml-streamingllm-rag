@@ -1,0 +1,38 @@
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama.LlamaTokenizer'>. If you see this, DO NOT PANIC! This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thouroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+normalizer.cc(51) LOG(INFO) precompiled_charsmap is empty. use identity normalization.
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.63s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.24s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.45s/it]
+Traceback (most recent call last):
+  File "examples/run_streaming_llama.py", line 303, in <module>
+    main(args)
+  File "examples/run_streaming_llama.py", line 278, in main
+    times, tokens_per_second = streaming_inference(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
+    return func(*args, **kwargs)
+  File "examples/run_streaming_llama.py", line 228, in streaming_inference
+    evicted_text = greedy_generate_text(model, tokenizer, input_ids, evicted_raw_tokens, max_gen_len=max_gen_len)
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
+    return func(*args, **kwargs)
+  File "examples/run_streaming_llama.py", line 34, in greedy_generate_text
+    outputs = model(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 820, in forward
+    outputs = self.model(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 708, in forward
+    layer_outputs = decoder_layer(
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 437, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/kenchoi/.local/lib/python3.8/site-packages/transformers/models/llama/modeling_llama.py", line 220, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/nobackup/users/kenchoi/anaconda3/envs/streaming/lib/python3.8/site-packages/torch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+KeyboardInterrupt

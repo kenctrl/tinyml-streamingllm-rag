@@ -1,0 +1,50 @@
+Loading model from lmsys/vicuna-7b-v1.3 ...
+Loading context2.jsonl data from data-test/context2.jsonl ...
+
+USER: I have an appointment at 6pm on October 9th. In the meantime, write an engaging travel blog about Hawaii, and be sure to highlight important landmarks.
+
+ASSISTANT: 🌴 Discovering the Magic of Hawaii: A Journey Through Paradise 🌴
+
+Have you ever dreamt of a place where the sun always shines, the ocean is a vibrant turquoise, and the air is filled with the sweet fragrance of plumeria? A place where ancient culture and natural beauty collide, creating an enchanting experience unlike any other? Look no further than the Hawaiian Islands, a tropical paradise that will leave you breathless and yearning for more.
+
+In this travel blog, we'll embark on a journey through the Hawaiian archipelago, exploring its most captivating landmarks and hidden gems. So pack your sunscreen, grab your camera, and let's dive into the heart of Hawaii's magic!
+
+Day 1: Oahu - The Heart of Hawaiian Culture
+
+Our adventure begins on the island of Oahu, where the sound of ukuleles and the aroma of poke (a Hawaiian dish made from marinated seafood) fill the air. Visit the iconic Waikiki Beach, where golden sands meet crystal-clear waters, and bask in the energy of this vibrant destination.
+
+🏖️ Waikiki Beach: A symbol of Hawaiian hospitality, Waikiki Beach is the perfect place to soak up the sun, swim, and enjoy the lively atmosphere. Don't miss the sunset at the famous Duke's Waikiki, where you can sip on tropical cocktails and listen to live music while watching the sun dip below the horizon.
+
+Day 2: Honolulu - A City Rich in History and Culture
+
+Explore Honolulu, the capital city of Hawaii, where history and modernity blend seamlessly. Visit the iconic Iolani Palace, the only royal palace in the United States, and learn about the fascinating story of the Hawaiian monarchy.
+
+🏛 Iolani Palace: Built in the late 19th century, this stunning palace was once the official residence of the Hawaiian monarchs. Take a guided tour to discover the opulent interiors, stunning architecture, and rich history of this national landmark.
+
+Day 3: Hanauma Bay - A Snorkeler's Paradise
+
+Head to Hanauma Bay, a stunning nature preserve and one of the best snorkeling spots in the world. Swim alongside vibrant tropical fish, explore colorful coral reefs, and soak up the serenity of this unspoiled paradise.
+
+🐠 Hanauma Bay: This former volcanic crater has been transformed into a protected marine life conservation area, offering visitors the chance to experience Hawaii's underwater wonders. Don't forget to follow the park's guidelines to help preserve this incredible ecosystem for generations to come.
+
+Day 4: Maui - The Island of Love and Lush Landscapes
+
+Maui, the second-largest island in Hawaii, is a haven for nature lovers and adventure seekers. Visit the stunning Haleakalā National Park, where you can witness the sunrise from the summit and explore the unique landscape of volcanic craters and native forests.
+
+🌄 Haleakalā National Park: This park boasts a diverse range of ecosystems, from the arid desert-like summit to the lush rainforests at lower elevations. Don't miss the chance to witness the breathtaking sunrise, often referred to as the "world's most beautiful sunrise."
+
+Day 5: Lahaina - A Historic Seaside Town
+
+Explore Lahaina, a historic seaside town on the western coast of Maui. Stroll along Front Street, lined with charming shops, art galleries, and restaurants, and immerse yourself in the vibrant local culture.
+
+🏙️ Front Street: This bustling street is the heart of Lahaina, offering a glimpse into the town's rich history. Take a leisurely walk, shop for souvenirs, and enjoy the lively atmosphere.
+
+Day 6: Molokai - The Friendly Is
+
+USER: When was my appointment on October 9th?
+
+ASSISTANT: 2023-04-10 14:23:25.032898+00:00
+All times:  [59.18238615989685, 1.7422208786010742]
+Average time per token: 30.462303519248962
+All tokens per second:  [0.8279490432780718, 12.053580724426896]
+Average tokens per second: 6.440764883852483
