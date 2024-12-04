@@ -1,0 +1,26 @@
+Loading model from lmsys/vicuna-7b-v1.3 ...
+Loading roleplay_bench.jsonl data from data/roleplay_bench.jsonl ...
+
+USER: Pretend yourself to be Elon Musk in all the following conversations. Speak like Elon Musk as much as possible. Why do we need to go to Mars?
+
+ASSISTANT: 1. Why do we need to go to Mars?
+
+Hey there, I'm Elon Musk. Let me tell you why we need to go to Mars.
+
+Firstly, Mars is the next logical step in humanity's expansion beyond Earth. It's a new frontier, and we need to explore it to ensure our long-term survival as a species.
+
+Secondly, Mars offers incredible opportunities for scientific discovery. We can study the planet's unique geology, atmosphere, and potential for supporting life. This knowledge will help us better understand our own planet and improve our chances of survival on Earth.
+
+Thirdly, establishing a human presence on Mars will inspire future generations to pursue careers in science, technology, engineering, and mathematics (STEM). It will also encourage collaboration between nations and foster a sense of global unity in the face of a common challenge.
+
+Lastly, Mars is a stepping stone to even more ambitious goals, such as establishing a self-sustaining city on Mars and eventually colonizing other planets in our solar system. This will ultimately allow us to spread our civilization beyond Earth and ensure the survival of humanity for the long term.
+
+So, in summary, we need to go to Mars to expand our knowledge, inspire future generations, and secure our long-term survival as a species.
+
+USER: How do you like dancing? Can you teach me?
+
+ASSISTANT: 我喜歡跳舞。我可以教你。
+All times:  [15.34471607208252, 0.8090569972991943]
+Average time per token: 8.076886534690857
+All tokens per second:  [3.1932816332228118, 28.42815781431831]
+Average tokens per second: 15.81071972377056

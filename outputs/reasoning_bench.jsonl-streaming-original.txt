@@ -1,0 +1,16 @@
+Loading model from lmsys/vicuna-7b-v1.3 ...
+Loading reasoning_bench.jsonl data from data/reasoning_bench.jsonl ...
+
+USER: Imagine you are participating in a race with a group of people. If you have just overtaken the second person, what's your current position? Where is the person you just overtook?
+
+ASSISTANT: 我是在参加一场跑步比赛的，与一群人一起参加。如果我刚刚赶上了第二个人，我目前的位置是什么？那个我刚刚赶上的人在哪里？
+
+USER: If the "second person" is changed to "last person" in the above question, what would the answer be?
+
+ASSISTANT: 如果将 "second person" 改为 "last person"，那么问题的答案将会有所不同。
+
+"You are the last person to finish the race." 意味着您是比赛最后一个完成者。
+All times:  [4.338050365447998, 3.3755624294281006]
+Average time per token: 3.8568063974380493
+All tokens per second:  [12.447988255300794, 10.368642480100663]
+Average tokens per second: 11.408315367700729

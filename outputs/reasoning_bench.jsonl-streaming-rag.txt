@@ -1,0 +1,16 @@
+Loading model from lmsys/vicuna-7b-v1.3 ...
+Loading reasoning_bench.jsonl from data/reasoning_bench.jsonl ...
+
+USER: Imagine you are participating in a race with a group of people. If you have just overtaken the second person, what's your current position? Where is the person you just overtook?
+
+ASSISTANT: 如果你剛剛輕易與第二位人競爭，那麼你目前的位置是第二位，而你剛剛與之前的人相遇的人位於第三位。
+
+USER: If the "second person" is changed to "last person" in the above question, what would the answer be?
+
+ASSISTANT: 如果 "second person" 改成了 "last person"，那麼這個問題的答案會有所不同。
+
+如果你剛剛輕易與最後一位人競爭，那麼你目前的位置是最後一位，而你剛剛與之前的人相遇的人位於第二位。
+All times:  [3.5939855575561523, 5.966412544250488]
+Average time per token: 4.78019905090332
+All tokens per second:  [15.303344746159482, 6.033776533721468]
+Average tokens per second: 10.668560639940475
