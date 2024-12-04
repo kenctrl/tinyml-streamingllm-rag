@@ -1,5 +1,5 @@
 Loading model from lmsys/vicuna-7b-v1.3 ...
-Loading mt_bench.jsonl from data-test/mt_bench.jsonl ...
+Loading writing_bench.jsonl from data-mini/writing_bench.jsonl ...
 
 USER: Compose an engaging travel blog post about a recent trip to Hawaii, highlighting cultural experiences and must-see attractions.
 
@@ -228,4 +228,275 @@ I tried the combination, but it wouldn't open. I was about to give up when I hea
 
 ASSISTANT: 1. One day, I decided to take a closer look. I walked down the street, past the overgrown bushes and the rusted-out cars, until I reached the old house.
 2. I sat up in bed, my heart pounding with excitement. I had discovered a secret that no one else had ever known.
-3. And I knew that I would be back to explore the old house 
+3. And I knew that I would be back to explore the old house again, to see what other secrets it held.
+4. I tried the combination, but it wouldn't open. I was about to give up when I heard the whispering again, this time louder and more insistent.
+5. I followed the sound, my heart pounding in my chest. It led me to a hidden room, filled with ancient artifacts and mysterious objects.
+6. I touched one of the objects, and it felt warm to the touch. I had discovered a new power that I never knew I had.
+7. I left the old house, but I knew that I would be back to explore further. I had only scratched the surface of what the old house had to offer.
+8. I walked back to my car, feeling a sense of excitement and wonder. I had discovered something truly amazing, and I couldn't wait to see what else the world had in store for me.
+
+USER: Craft an intriguing opening paragraph for a fictional short story. The story should involve a character who wakes up one morning to find that they can time travel.
+
+Top 3 contexts (may not be relevant):
+I sat up in bed, my heart pounding with excitement. I had discovered a secret that no one else had ever known. And I knew that I would be back to explore the old house again, to see what other secrets it held.
+Suddenly, I heard a noise coming from the back of the house. I followed the sound until I reached a door that I had never seen before. It was made of solid oak, with a rusty lock and a chain hanging from the handle.
+The old abandoned house at the end of the street held a secret that no one had ever discovered. It had been empty for as long as anyone could remember, and the rumors about what went on inside were enough to keep even the bravest of children away.
+
+ASSISTANT: I woke up to the sound of my own heartbeat, pounding in my chest like a drum. For a moment, I lay there in bed, disoriented and confused. Then, I felt it - a strange sensation, like a pull on my consciousness. I sat up, my eyes wide with wonder, as I realized that I was time traveling. I had always dreamed of being able to go back in time, to see what had happened before my own birth, to witness the world as it was before I was born. And now, it seemed that my dream had come true. I was filled with a sense of excitement and wonder, as I realized that I could go anywhere, see anything, and be anyone. I was no longer bound by the constraints of time and space. I was free to explore the world in ways that I had never imagined. And I knew that I would never be the same again.
+
+USER: Summarize the story with three bullet points using only nouns and adjectives, without verbs.
+
+Top 3 contexts (may not be relevant):
+The old abandoned house at the end of the street held a secret that no one had ever discovered. It had been empty for as long as anyone could remember, and the rumors about what went on inside were enough to keep even the bravest of children away.
+I sat up in bed, my heart pounding with excitement. I had discovered a secret that no one else had ever known. And I knew that I would be back to explore the old house again, to see what other secrets it held.
+One day, I decided to take a closer look. I walked down the street, past the overgrown bushes and the rusted-out cars, until I reached the old house. It was a two-story wooden structure, with a sagging porch and peeling paint.
+
+ASSISTANT: * Abandoned house
+* Old
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Secret
+* Discovered
+* Excitement
+* Brave children
+* Empty
+* Rumors
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted-out cars
+* Street
+* Two-story
+* Wooden structure
+* Sagging porch
+* Peeling paint
+* Old house
+* Explore
+* Secrets
+* Heart pounding
+* Excited
+* Back
+* Overgrown bushes
+* Rusted
+
+USER: Help me construct a catchy, yet scientifically accurate, headline for an article on the latest discovery in renewable bio-energy, while carefully handling the ethical dilemmas surrounding bio-energy sources. Propose 4 options.
+
+Top 3 contexts (may not be relevant):
+I sat up in bed, my heart pounding with excitement. I had discovered a secret that no one else had ever known. And I knew that I would be back to explore the old house again, to see what other secrets it held.
+The ghostly woman smiled and beckoned me closer. I took a step forward, and suddenly I was floating in the air, surrounded by a bright light.
+The old abandoned house at the end of the street held a secret that no one had ever discovered. It had been empty for as long as anyone could remember, and the rumors about what went on inside were enough to keep even the bravest of children away.
+
+ASSISTANT: 1. "Unlocking the Secrets of Bio-Energy: The Latest Breakthrough in Renewable Energy"
+2. "Bio-Energy: The Future of Renewable Energy or Ethical Dilemma? Exploring the Latest Discovery"
+3. "Floating on Air: The Ethical Implications of the Latest Discovery in Bio-Energy"
+4. "The Ghostly Woman's Secret: The Latest Discovery in Bio-Energy and Its Ethical Challenges"
+
+USER: Alter your previous response. Make the following adjustments to the 2nd option: 1. Make the tone sound casual 2. Embed an advertisement for a company called "FlexPower" 3. Fewer than 10 words.
+
+Top 3 contexts (may not be relevant):
+"Who are you?" I asked, my voice trembling with fear.
+The ghostly woman smiled and beckoned me closer. I took a step forward, and suddenly I was floating in the air, surrounded by a bright light.
+
+ASSISTANT: 1. "FlexPower: The Future of Renewable Energy"
+2. "Join FlexPower for a Sustainable Future"
+3. "FlexPower: Powering Your Life, Powering the Planet"
+
+USER: Edit the following paragraph to correct any grammatical errors:
+She didn't remembre where is her purse, so I thinks its in the car but he's say it's on kitchen table but he are not sure, and then they asked me to looking for it, she's say, "Can you?", and I responds with, "Maybe, but ain't no sure," and he not heard me, and, "What?", he asks, "Did you found it?".
+
+Top 3 contexts (may not be relevant):
+Just as I was about to give up, I heard a faint whispering coming from the corner of the room. I followed the sound until I reached a small, old-fashioned safe.
+I stared at the treasure in amazement, wondering how it had gotten there. Then I heard the whispering again, this time much closer.
+I sat up in bed, my heart pounding with excitement. I had discovered a secret that no one else had ever known. And I knew that I would be back to explore the old house again, to see what other secrets it held.
+
+ASSISTANT: 1. "She didn't remember where her purse was, so I thought it was in the car, but he said it was on the kitchen table, but he wasn't sure. Then they asked me to look for it, and she said, "Can you?" I responded with, "Maybe, but I'm not sure." He didn't hear me, and then he asked, "Did you find it?"
+2. "Just as I was about to give up, I heard a faint whispering coming from the corner of the room. I followed the sound until I reached a small, old-fashioned safe."
+3. "I stared at the treasure in amazement, wondering how it had gotten there. Then I heard the whispering again, this time much closer."
+
+USER: Modify your earlier reply and eliminate the use of gendered pronouns.
+
+Top 3 contexts (may not be relevant):
+I tried the combination, but it wouldn't open. I was about to give up when I heard the whispering again, this time louder and more insistent.
+"Who are you?" I asked, my voice trembling with fear.
+
+ASSISTANT: 1. I attempted the combination, but it wouldn't open. I was about to give up when I heard the whispering again, this time louder and more persistent.
+2. I tried the combination, but it wouldn't open. I was about to give up when I heard the whispering again, this time louder and more urgent.
+3. I attempted the combination, but it wouldn't open. I was about to give up when I heard the whispering again, this time louder and more persistent.
+All times:  [34.42410087585449, 14.218368768692017, 19.026612043380737, 78.51959228515625, 75.51029396057129, 68.04122805595398, 83.34210515022278, 63.27602791786194, 86.41812920570374, 83.82701826095581, 79.73100972175598, 131.03617072105408, 78.26985263824463, 82.8823938369751, 77.48636221885681, 131.17366576194763, 14.101876020431519, 3.1173336505889893, 75.76884913444519, 72.19543886184692]
+Average time per token: 67.61832145452499
+All tokens per second:  [1.1329271936730554, 1.7582889012590868, 3.468825655850857, 0.2929205225171303, 0.9402691510785748, 0.3968182346414506, 0.7319229564701839, 0.5373282919107234, 0.45129419438330004, 0.42945580967619545, 0.6396507479082354, 0.2671018224006787, 0.5877103182065178, 2.2682742533931295, 2.852114793772293, 1.6238015364040355, 15.246198426967945, 42.02309238706253, 3.3918952569013685, 1.3020213116216144]
+Average tokens per second: 4.0170955883049455
