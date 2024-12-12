@@ -26,9 +26,11 @@ python setup.py develop
 CUDA_VISIBLE_DEVICES=0 python examples/run_streaming_llama.py --enable_streaming
 ```
 
-### Run all benchmarks for all models
+### Push-the-button command to run all benchmarks for all models
 ```bash
 ./run_streaming_batch
 ```
 
-This will run StreamingRAG, StreamingLLM, and Dense Attentions on all benchmarks specified in `run_streaming_batch.sh`. Modify `run_streaming_batch.sh` as needed to include or exclude benchmarks from the `data/**` directories.
+This will run StreamingRAG, StreamingLLM, and Dense Attentions on all benchmarks specified in `run_streaming_batch.sh`. Outputs can be found in `outputs/`.
+
+Modify `run_streaming_batch.sh` as needed to include or exclude benchmarks from the `data/**` directories.
