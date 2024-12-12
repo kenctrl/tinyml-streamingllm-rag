@@ -5,6 +5,7 @@
 In scenarios where LLMs are used for long-context tasks, one major challenge is the computation and memory costs that occur due to the capacities of key value caches. A potential solution that aims to address this issue is StreamingLLM, which accomplishes the computation and memory costs by way of preserving initial tokens to leverage attention sinks. However, a bottleneck that StreamingLLM faces is the case where tokens are evicted from the sliding window. To help mitigate this downside, we propose \textit{StreamingRAG}. We utilize Retrieval-Augmented Generation (RAG) to store the evicted tokens from StreamingLLM into a vector database and then selectively inject them into prompts. StreamingRAG effectively extends the context window length infinitely without sacrificing efficiency. StreamingRAG showcases an improved accuracy in tasks that require a large context window, such as document question answering, while maintaining a 22x speedup over the Sliding Window w/ Recomputation.
 
 ## Usage
+Our contributions can be found in `examples/`.
 
 ### Environment Setup
 The setup is the same as that for [StreamingLLM](https://github.com/mit-han-lab/streaming-llm).
