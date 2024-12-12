@@ -8,7 +8,7 @@ In scenarios where LLMs are used for long-context tasks, one major challenge is 
 Our contributions can be found in `examples/`.
 
 ### Environment Setup
-The setup is the same as that for [StreamingLLM](https://github.com/mit-han-lab/streaming-llm).
+The setup is the same as that for [StreamingLLM](https://github.com/mit-han-lab/streaming-llm), with one caveat. Since we use GPT-4o-mini-as-a-judge to score LLM outputs, you'll need to paste an OpenAI key in `produce_statistics.py` to collect results.
 
 ```bash
 conda create -yn streaming python=3.8
@@ -26,11 +26,12 @@ python setup.py develop
 CUDA_VISIBLE_DEVICES=0 python examples/run_streaming_llama.py --enable_streaming
 ```
 
-### Push-the-button command to run all benchmarks for all models
+### Push-the-button commands to run all benchmarks
 ```bash
 ./run_streaming_batch
+./produce_statistics.py
 ```
 
-This will run StreamingRAG, StreamingLLM, and Dense Attentions on all benchmarks specified in `run_streaming_batch.sh`. Outputs can be found in `outputs/`.
+This will run StreamingRAG, StreamingLLM, and Dense Attentions on all benchmarks specified in `run_streaming_batch.sh`. Outputs can be found in `outputs/`. Then, it will run GPT-4o-mini-as-a-judge to score LLM outputs, as described in the paper.
 
-Modify `run_streaming_batch.sh` as needed to include or exclude benchmarks from the `data/**` directories.
+Modify `run_streaming_batch.sh` as needed to include or exclude benchmarks from the `data/**` directories. Also, make sure to modify the outputs directory in `produce_statistics.py` to correctly get the benchmark data that was generated. Visualization scripts can be found in `stats/`.
