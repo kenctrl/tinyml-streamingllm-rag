@@ -7,7 +7,7 @@ def get_chat_completion(client, prompt, model="gpt-4o-mini"):
 
 if __name__ == "__main__":
   client = OpenAI(
-    api_key="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"
+    api_key=""
   )
   
   # Store all the txt files in the outputs-mt-bench directory
